@@ -1,5 +1,0 @@
-pathlib
-ruamel-yaml
-roboflow
-pymongo
-gridfs

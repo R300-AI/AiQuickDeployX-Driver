@@ -27,10 +27,10 @@ print('Valid task:', Xdriver.__task__)
 # 須提供使用者名稱(username)，以為其建構獨立的引擎環境
 ###############################################
 client = MongoDB('localhost', '27017', 'admin', 'admin')
-model = Plugins(dtype='Vision2D', task='ObjectDetection', engine='Pytorch/YOLOv8n')
+model = Plugins(dtype='Vision2D', task='ObjectDetection')
 
 #print available datasets, models
-client.Pull(dtype='Vision2D', task='ObjectDetection', dataset='HardHat', engine=model.engine, username='markov')
+client.Pull(dtype='Vision2D', task='ObjectDetection', dataset='HardHat', engine='Pytorch/YOLOv8n', username='markov')
 
 ###############################################
 # 【執行引擎環境(需先Pull好所要訓練的資料集)】

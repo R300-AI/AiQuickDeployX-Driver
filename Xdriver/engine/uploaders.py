@@ -16,7 +16,7 @@ class YOLOv8_Uploader():
                     paired_file.append([image, label])
         return paired_file
 
-    def Upload(self, dataset_path, retrain_origin):
+    def Upload(self, dataset_path, remain_origin):
         if self.dtype == 'Vision2D':
             if self.task == 'ImageClassification':
                 print(self.task, 'not supported for YOLOv8_Uploader() yet.')
@@ -41,7 +41,7 @@ class YOLOv8_Uploader():
                         print('【YOLOv8_Uploader】Config SystemInfo...')
                         self.upload_systeminfo(dataset_path)
 
-                        if retrain_origin == False and os.path.exists(dataset_path)==True:
+                        if remain_origin == False and os.path.exists(dataset_path)==True:
                             shutil.rmtree(dataset_path)
                         print('【YOLOv8_Uploader】Finished.')
                     else:

@@ -1,6 +1,6 @@
 import Xdriver, os, subprocess
 
-class Models():
+class Plugins():
     def __init__(self, dtype: Xdriver.__dtype__, task: Xdriver.__task__, engine=None):
         self.dtype = dtype
         self.task = task

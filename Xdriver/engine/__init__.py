@@ -1,4 +1,4 @@
 from .mongodb import MongoDB
-from .models import Plugins
+from .plugins import Plugins
 
 __all__ = ('MongoDB', 'Plugins')

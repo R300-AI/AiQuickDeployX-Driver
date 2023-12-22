@@ -8,11 +8,11 @@
 ### 目錄結構
 ```
 AiQuickDeployX-Driver
-    ├─ models            # 放置已安裝的訓練引擎，由X-driver.plugins模組統一管理
+    ├─ plugins            # 放置已安裝的訓練引擎，由X-driver.plugins模組統一管理
           ... ...         (它們皆會依照<dtype>/<task>/<framwork>/<model>_<tag>的資料夾路徑來進行分類)
     ├─ Xdriver           # Python模組的主體，使用範例請參考demo.py
+    ├─ tests             # 測試功能用的程式碼
     ├─ docs              # 放置說明文件
-    ├─ data              # 開發階段可能會使用的資料集，由X-driver.mongodb模組自動產生
     └─ index.json        # 訓練引擎的安裝來源與資訊
 ```
 

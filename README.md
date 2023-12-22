@@ -23,7 +23,6 @@ AiQuickDeployX-Driver
 #### 快速開始
 * 從線上取得HardHat範例資料集寫入MongoDB。以Vision2D/ObjectDetection任務類型為例。
     ```python
-    import Xdriver
     from Xdriver import MongoDB, Plugins
     
     #下載範例資料集至本機的執行目錄
@@ -35,7 +34,6 @@ AiQuickDeployX-Driver
     ```
 * 為使用者建立訓練模組，並從MongoDB拉取資料集來進行訓練。
     ```python
-    import Xdriver
     from Xdriver import MongoDB, Plugins
     
     #載入模組+資料集，並為特定使用者建立工作路徑

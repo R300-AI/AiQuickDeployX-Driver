@@ -32,7 +32,7 @@ AiQuickDeployX-Driver
     client = MongoDB('localhost', '27017', 'admin', 'admin')
     client.Push(dtype='Vision2D', task='ObjectDetection', dataset_path=dataset_path)
     ```
-* 將指定的資料集寫入MongoDB(需先整理成YOLOv8資料夾格式)，以HardHat範例資料集作為為例
+* 為使用者建立訓練模組，並從MongoDB拉取資料集來執行訓練。
     ```python
     import Xdriver
     from Xdriver import MongoDB, Plugins

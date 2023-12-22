@@ -34,25 +34,15 @@ AiQuickDeployX-Driver
     ```
 * 將指定的資料集寫入MongoDB(需先整理成YOLOv8資料夾格式)，以HardHat範例資料集作為為例
     ```python
-    from Xdriver import MongoDB, Models
+    import Xdriver
+    from Xdriver import MongoDB, Plugins
     
-    dataset_path = 'data\HardHat'
+    #載入模組+資料集，並為特定使用者建立工作路徑
+    module = Plugins()
     client = MongoDB('localhost', '27017', 'admin', 'admin')
-    client.Push(dtype='Vision2D', task='ObjectDetection', dataset_path=dataset_path, retrain_origin = False)
-    ```
-* 從MongoDB拉取指定資料集，並置於指定的引擎系統(<engine>/tmp/datasets/...)
-    ```python
-    from Xdriver import MongoDB, Models
     
-    client = MongoDB('localhost', '27017', 'admin', 'admin')
-    client.Pull(dtype='Vision2D', task='ObjectDetection', dataset='HardHat', engine='Pytorch/YOLOv8n', username='admin')
-    ```
-* 執行指定的引擎環境(需先透過前個步驟Pull好所要訓練的資料集)，並回傳輸出檔案的存放路徑
-    ```python
-    from Xdriver import MongoDB, Models
-    
-    model = Models(dtype='Vision2D', task='ObjectDetection', engine='Pytorch/YOLOv8n')
-    output_path = model.run(dataset='HardHat', username='admin')
+    client.Pull(dataset='HardHat', metadata=module.Load('Pytorch/YOLOv8n', username='markov'))
+    module.Run(dataset='HardHat')
     ```
     
 ### 開發文件

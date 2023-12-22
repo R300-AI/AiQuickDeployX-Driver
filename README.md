@@ -12,6 +12,7 @@ AiQuickDeployX-Driver
           ... ...         (它們皆會依照<dtype>/<task>/<framwork>/<model>_<tag>的資料夾路徑來進行分類)
     ├─ Xdriver           # Python模組的主體，使用範例請參考demo.py
     ├─ tests             # 測試功能用的程式碼
+    ├─ data              # 本機的範例資源
     ├─ docs              # 放置說明文件
     └─ index.json        # 訓練引擎的安裝來源與資訊
 ```

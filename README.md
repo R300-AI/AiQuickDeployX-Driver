@@ -51,8 +51,9 @@ AiQuickDeployX-Driver
     
     module = Plugins()
 
-    #從github API安裝
+    #從github url安裝
     module.Install(url='https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git')
+   
    #從本機目錄安裝
     module.Install(local_path='C:/Users/B20447/Documents/GitHub/AiQuickDeployX-Driver/data/Pytorch-YOLOv8m_det')
     ```

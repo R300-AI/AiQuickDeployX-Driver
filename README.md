@@ -20,7 +20,6 @@ AiQuickDeployX-Driver
 ![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/d23941da-69d5-47ce-8f22-bf5475213a6b)
 
 #### 快速開始
-##### MongoDB
 * 從Roboflow取得HardHat範例資料集寫入MongoDB。以Vision2D/ObjectDetection任務類型為例。
     ```python
     import Xdriver

@@ -20,11 +20,18 @@ AiQuickDeployX-Driver
 ![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/d23941da-69d5-47ce-8f22-bf5475213a6b)
 
 #### 快速開始
+##### MongoDB
 * 從Roboflow取得範例資料集(HardHat)
     ```python
-    from Xdriver import MongoDB, Models
+    import Xdriver
+    from Xdriver import MongoDB, Plugins
     
-    dataset_path = MongoDB.Download_Samples(dtype='Vision2D', task='ObjectDetection', path= './data')
+    #下載範例資料集至本機的執行目錄
+    dataset_path = MongoDB.Download_Samples(dtype='Vision2D', task='ObjectDetection')
+    
+    #將資料集寫入MongoDB，並以資料夾名稱(dataset_path)來命名資料集。*可於MongoDB中檢視
+    client = MongoDB('localhost', '27017', 'admin', 'admin')
+    client.Push(dtype='Vision2D', task='ObjectDetection', dataset_path=dataset_path)
     ```
 * 將指定的資料集寫入MongoDB(需先整理成YOLOv8資料夾格式)，以HardHat範例資料集作為為例
     ```python

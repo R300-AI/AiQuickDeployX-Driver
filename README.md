@@ -1,7 +1,7 @@
 ### 開發環境
 1. Bash Shell ([安裝](https://itsfoss.com/install-bash-on-windows/))
-2. Github Agent ([安裝](https://desktop.github.com/))
-3. Python Compiler>=3.8, PIP & Library ([安裝](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/Python%20Installation.md))
+2. Python Compiler>=3.8, PIP & Library ([安裝](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/Python%20Installation.md))
+3. Github Agent ([安裝](https://desktop.github.com/))
 4. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
 5. MongoDB Container ([安裝](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/MongoDB%20installation.md))
     
@@ -17,13 +17,13 @@ AiQuickDeployX-Driver
 ```
 
 ### 使用說明
-![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/d23941da-69d5-47ce-8f22-bf5475213a6b)
+![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
+
 
 #### 快速開始
-* 從Roboflow取得HardHat範例資料集寫入MongoDB。以Vision2D/ObjectDetection任務類型為例。
+* 從線上取得HardHat範例資料集寫入MongoDB。以Vision2D/ObjectDetection任務類型為例。
     ```python
-    import Xdriver
-    from Xdriver import MongoDB, Plugins
+    from Xdriver import MongoDB
     
     #下載範例資料集至本機的執行目錄
     dataset_path = MongoDB.Download_Samples(dtype='Vision2D', task='ObjectDetection')
@@ -32,9 +32,8 @@ AiQuickDeployX-Driver
     client = MongoDB('localhost', '27017', 'admin', 'admin')
     client.Push(dtype='Vision2D', task='ObjectDetection', dataset_path=dataset_path)
     ```
-* 為使用者建立訓練模組，並從MongoDB拉取資料集來執行訓練。
+* 為使用者建立訓練模組，並從MongoDB拉取資料集來進行訓練。
     ```python
-    import Xdriver
     from Xdriver import MongoDB, Plugins
     
     #載入模組+資料集，並為特定使用者建立工作路徑
@@ -45,6 +44,16 @@ AiQuickDeployX-Driver
     #執行訓練
     module.Run(dataset='HardHat')
     ```
+* 安裝訓練模組。
+   ```python
+    from Xdriver import Plugins
     
-### 開發文件
+    module = Plugins()
+
+    #從github API安裝
+    module.Install(url='https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git')
+   #從本機目錄安裝
+    module.Install(local_path='C:/Users/B20447/Documents/GitHub/AiQuickDeployX-Driver/data/Pytorch-YOLOv8m_det')
+    ```
+### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)

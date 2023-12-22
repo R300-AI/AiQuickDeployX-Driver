@@ -28,5 +28,5 @@ class Roboflow_APIs():
             if self.task == 'SemanticSegmentation':
                 print(self.task, 'not supported for Roboflow_APIs.download() yet.')
                 pass
-        print('【Roboflow APIs】{dtype}/{task} dataset downloaded (target_path).'.format(dtype=self.dtype, task=self.task, target_path=target_path))
+        print('【Roboflow APIs】{dtype}/{task} dataset downloaded to {target_path}.'.format(dtype=self.dtype, task=self.task, target_path=target_path))
         return target_path

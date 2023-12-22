@@ -24,40 +24,43 @@ class Plugins(Driver):
                         print('  -', module, '(dtype:', dtype ,'/task:', task, ')')
         return  modules
 
-    def make_tmp(self, username):
-        self.dataset_dir = self.module_dir + '/tmp/datasets/' + username
-        self.log_dir = self.module_dir + '/tmp/logs/' + username
-        self.output_dir = self.module_dir + '/tmp/outputs/' + username
-        Path(self.dataset_dir).mkdir(parents=True, exist_ok=True)
-        Path(self.log_dir).mkdir(parents=True, exist_ok=True)
-        Path(self.output_dir).mkdir(parents=True, exist_ok=True)
+    def tmp_config(self, username, dataset, initialize = True):
+        self.entrypoint =  os.path.relpath('./' + self.module_dir + '/run.sh', os.getcwd()).replace('\\', '/')
+        self.dataset =  (self.dataset_dir + '/' + dataset).replace('\\', '/')
+        self.output =  (self.output_dir + '/' + dataset).replace('\\', '/')
+        self.log =  (self.log_dir + '/' + dataset + '.log').replace('\\', '/')
 
+        print('【Plugins】Runtime Config:')
+        print('   - Entrypoint:', os.path.relpath(self.entrypoint, os.getcwd()))
+        print('   - Dataset folder:', os.path.relpath(self.dataset, os.getcwd()))
+        print('   - Output folder:', os.path.relpath(self.output, os.getcwd()))
+        print('   - Log file:', os.path.relpath(self.log, os.getcwd()))
+        print('---------------------------')
+        if initialize == True:
+            Path(self.dataset_dir).mkdir(parents=True, exist_ok=True)
+            Path(self.log_dir).mkdir(parents=True, exist_ok=True)
+            Path(self.output_dir).mkdir(parents=True, exist_ok=True)
+            if Path(self.output).exists():
+                shutil.rmtree(self.output)
+            if Path(self.log).exists():
+                os.remove(self.log)
+            Path(self.log).touch()
+            os.makedirs(self.output)
+        return self.entrypoint, self.dataset, self.output, self.log
 
     def Load(self, module, username):
         if module in self.__modules__.keys():
             self.dtype, self.task, self.username = self.__modules__[module]["dtype"], self.__modules__[module]["task"], username
             self.module_dir = self.__modules__[module]["module_dir"]
-            self.make_tmp(self.username)
+            self.dataset_dir = self.module_dir + '/tmp/datasets/' + username
+            self.log_dir = self.module_dir + '/tmp/logs/' + username
+            self.output_dir = self.module_dir + '/tmp/outputs/' + username
             return {"dataset_dir": self.dataset_dir, "dtype": self.dtype, "task": self.task, "username": self.username}
         else:
             print('engine not found, please check your configuration.')
 
     def Run(self, dataset=None):
-        entrypoint =  os.path.relpath('./' + self.module_dir + '/run.sh', os.getcwd()).replace('\\', '/')
-        dataset_dir =  (self.dataset_dir + '/' + dataset).replace('\\', '/')
-        output_dir =  (self.output_dir + '/' + dataset).replace('\\', '/')
-        log_path =  (self.log_dir + '/' + dataset + '.log').replace('\\', '/')
-
-        if Path(output_dir).exists():
-            shutil.rmtree(output_dir)
-        if Path(log_path).exists():
-            os.remove(log_path)
-        Path(log_path).touch()
-        os.makedirs(output_dir)
-        print('【Plugins】Runtime Config:')
-        print('   - Dataset folder:', os.path.relpath(dataset_dir, os.getcwd()))
-        print('   - Output folder:', os.path.relpath(output_dir, os.getcwd()))
-        print('   - Log file:', os.path.relpath(log_path, os.getcwd()))
-        print('---------------------------')
-        subprocess.run(["bash ", entrypoint, '-u', self.username, '-d', dataset_dir, '-l', log_path, '-o', output_dir])
-        print('finish.')
+        entrypoint, dataset, output, log = self.tmp_config(self.username, dataset, True)
+        subprocess.run(["bash ", entrypoint, '-u', self.username, '-d', dataset, '-l', log, '-o', output])
+        shutil.rmtree(dataset)
+        print('finish')

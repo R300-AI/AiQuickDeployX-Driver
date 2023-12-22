@@ -57,10 +57,10 @@ YOLOv8n summary: 225 layers, 3011433 parameters, 3011417 gradients, 8.2 GFLOPs
 
 [34m[1mTensorBoard: [0mStart with 'tensorboard --logdir /usr/src/ultralytics/runs/detect/train', view at http://localhost:6006/
 Freezing layer 'model.22.dfl.conv.weight'
-[34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels...:   0% 0/70 [00:00<?, ?it/s][34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels... 25 images, 0 backgrounds, 0 corrupt:  36% 25/70 [00:00<00:00, 236.11it/s][34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels... 64 images, 0 backgrounds, 0 corrupt:  91% 64/70 [00:00<00:00, 322.51it/s][34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels... 70 images, 0 backgrounds, 0 corrupt: 100% 70/70 [00:00<00:00, 320.03it/s]
+[34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels...:   0% 0/70 [00:00<?, ?it/s][34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels... 25 images, 0 backgrounds, 0 corrupt:  36% 25/70 [00:00<00:00, 233.19it/s][34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels... 65 images, 0 backgrounds, 0 corrupt:  93% 65/70 [00:00<00:00, 305.98it/s][34m[1mtrain: [0mScanning /usr/src/ultralytics/dataset/train/labels... 70 images, 0 backgrounds, 0 corrupt: 100% 70/70 [00:00<00:00, 316.00it/s]
 [34m[1mtrain: [0mNew cache created: /usr/src/ultralytics/dataset/train/labels.cache
 [34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01), CLAHE(p=0.01, clip_limit=(1, 4.0), tile_grid_size=(8, 8))
-[34m[1mval: [0mScanning /usr/src/ultralytics/dataset/valid/labels...:   0% 0/20 [00:00<?, ?it/s][34m[1mval: [0mScanning /usr/src/ultralytics/dataset/valid/labels... 20 images, 0 backgrounds, 0 corrupt: 100% 20/20 [00:00<00:00, 292.91it/s]
+[34m[1mval: [0mScanning /usr/src/ultralytics/dataset/valid/labels...:   0% 0/20 [00:00<?, ?it/s][34m[1mval: [0mScanning /usr/src/ultralytics/dataset/valid/labels... 20 images, 0 backgrounds, 0 corrupt: 100% 20/20 [00:00<00:00, 277.67it/s]
 [34m[1mval: [0mNew cache created: /usr/src/ultralytics/dataset/valid/labels.cache
 Plotting labels to /usr/src/ultralytics/runs/detect/train/labels.jpg... 
 [34m[1moptimizer:[0m 'optimizer=auto' found, ignoring 'lr0=0.01' and 'momentum=0.937' and determining best 'optimizer', 'lr0' and 'momentum' automatically... 
@@ -68,28 +68,28 @@ Plotting labels to /usr/src/ultralytics/runs/detect/train/labels.jpg...
 2 epochs...
 
       Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
-  0% 0/5 [00:00<?, ?it/s]        1/2         0G      3.888       4.51      4.259        111        640:   0% 0/5 [00:07<?, ?it/s]        1/2         0G      3.888       4.51      4.259        111        640:  20% 1/5 [00:07<00:31,  7.98s/it]        1/2         0G       3.99      4.568      4.261        112        640:  20% 1/5 [00:17<00:31,  7.98s/it]        1/2         0G       3.99      4.568      4.261        112        640:  40% 2/5 [00:17<00:25,  8.66s/it]        1/2         0G      3.959      4.645      4.248         82        640:  40% 2/5 [00:25<00:25,  8.66s/it]        1/2         0G      3.959      4.645      4.248         82        640:  60% 3/5 [00:25<00:16,  8.31s/it]        1/2         0G      4.028      4.744      4.266         94        640:  60% 3/5 [00:33<00:16,  8.31s/it]        1/2         0G      4.028      4.744      4.266         94        640:  80% 4/5 [00:33<00:08,  8.24s/it]        1/2         0G      3.955       4.74      4.282         24        640:  80% 4/5 [00:36<00:08,  8.24s/it]        1/2         0G      3.955       4.74      4.282         24        640: 100% 5/5 [00:36<00:00,  6.33s/it]        1/2         0G      3.955       4.74      4.282         24        640: 100% 5/5 [00:36<00:00,  7.22s/it]
-                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0% 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.81s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.81s/it]
+  0% 0/5 [00:00<?, ?it/s]        1/2         0G      3.888       4.51      4.259        111        640:   0% 0/5 [00:07<?, ?it/s]        1/2         0G      3.888       4.51      4.259        111        640:  20% 1/5 [00:07<00:31,  7.84s/it]        1/2         0G       3.99      4.568      4.261        112        640:  20% 1/5 [00:15<00:31,  7.84s/it]        1/2         0G       3.99      4.568      4.261        112        640:  40% 2/5 [00:15<00:23,  7.70s/it]        1/2         0G      3.959      4.645      4.248         82        640:  40% 2/5 [00:23<00:23,  7.70s/it]        1/2         0G      3.959      4.645      4.248         82        640:  60% 3/5 [00:23<00:15,  7.64s/it]        1/2         0G      4.028      4.744      4.266         94        640:  60% 3/5 [00:30<00:15,  7.64s/it]        1/2         0G      4.028      4.744      4.266         94        640:  80% 4/5 [00:30<00:07,  7.56s/it]        1/2         0G      3.955       4.74      4.282         24        640:  80% 4/5 [00:33<00:07,  7.56s/it]        1/2         0G      3.955       4.74      4.282         24        640: 100% 5/5 [00:33<00:00,  5.76s/it]        1/2         0G      3.955       4.74      4.282         24        640: 100% 5/5 [00:33<00:00,  6.60s/it]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0% 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.87s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.87s/it]
                    all         20         65          0          0          0          0
 
       Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
-  0% 0/5 [00:00<?, ?it/s]        2/2         0G       4.14      4.626      4.319        117        640:   0% 0/5 [00:07<?, ?it/s]        2/2         0G       4.14      4.626      4.319        117        640:  20% 1/5 [00:07<00:29,  7.42s/it]        2/2         0G      4.215      4.788      4.299         86        640:  20% 1/5 [00:15<00:29,  7.42s/it]        2/2         0G      4.215      4.788      4.299         86        640:  40% 2/5 [00:15<00:23,  7.69s/it]        2/2         0G      4.469      4.842      4.289        116        640:  40% 2/5 [00:23<00:23,  7.69s/it]        2/2         0G      4.469      4.842      4.289        116        640:  60% 3/5 [00:23<00:15,  7.86s/it]        2/2         0G      4.329      4.827      4.294         65        640:  60% 3/5 [00:30<00:15,  7.86s/it]        2/2         0G      4.329      4.827      4.294         65        640:  80% 4/5 [00:30<00:07,  7.69s/it]        2/2         0G       4.31      4.763      4.323         42        640:  80% 4/5 [00:33<00:07,  7.69s/it]        2/2         0G       4.31      4.763      4.323         42        640: 100% 5/5 [00:33<00:00,  6.02s/it]        2/2         0G       4.31      4.763      4.323         42        640: 100% 5/5 [00:33<00:00,  6.77s/it]
-                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0% 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:04<00:00,  4.09s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:04<00:00,  4.09s/it]
+  0% 0/5 [00:00<?, ?it/s]        2/2         0G       4.14      4.626      4.319        117        640:   0% 0/5 [00:08<?, ?it/s]        2/2         0G       4.14      4.626      4.319        117        640:  20% 1/5 [00:08<00:32,  8.10s/it]        2/2         0G      4.215      4.788      4.299         86        640:  20% 1/5 [00:16<00:32,  8.10s/it]        2/2         0G      4.215      4.788      4.299         86        640:  40% 2/5 [00:16<00:24,  8.27s/it]        2/2         0G      4.469      4.842      4.289        116        640:  40% 2/5 [00:24<00:24,  8.27s/it]        2/2         0G      4.469      4.842      4.289        116        640:  60% 3/5 [00:24<00:16,  8.07s/it]        2/2         0G      4.329      4.827      4.294         65        640:  60% 3/5 [00:31<00:16,  8.07s/it]        2/2         0G      4.329      4.827      4.294         65        640:  80% 4/5 [00:31<00:07,  7.66s/it]        2/2         0G       4.31      4.763      4.323         42        640:  80% 4/5 [00:33<00:07,  7.66s/it]        2/2         0G       4.31      4.763      4.323         42        640: 100% 5/5 [00:33<00:00,  5.85s/it]        2/2         0G       4.31      4.763      4.323         42        640: 100% 5/5 [00:33<00:00,  6.80s/it]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0% 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.47s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.47s/it]
                    all         20         65          0          0          0          0
 
-2 epochs completed in 0.022 hours.
+2 epochs completed in 0.021 hours.
 Optimizer stripped from /usr/src/ultralytics/runs/detect/train/weights/last.pt, 6.2MB
 Optimizer stripped from /usr/src/ultralytics/runs/detect/train/weights/best.pt, 6.2MB
 
 Validating /usr/src/ultralytics/runs/detect/train/weights/best.pt...
 Ultralytics YOLOv8.0.228 🚀 Python-3.10.13 torch-2.1.0 CPU (Intel Core(TM) i7-10700T 2.00GHz)
 YOLOv8n summary (fused): 168 layers, 3006233 parameters, 0 gradients, 8.1 GFLOPs
-                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0% 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.26s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.26s/it]
+                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95):   0% 0/1 [00:00<?, ?it/s]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.12s/it]                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% 1/1 [00:03<00:00,  3.12s/it]
                    all         20         65   0.000107      0.167   0.000133   1.33e-05
                   head         20         18          0          0          0          0
                 helmet         20         45          0          0          0          0
                 person         20          2   0.000321        0.5   0.000399   3.99e-05
-Speed: 2.0ms preprocess, 137.4ms inference, 0.0ms loss, 10.8ms postprocess per image
+Speed: 1.4ms preprocess, 134.4ms inference, 0.0ms loss, 10.4ms postprocess per image
 Results saved to [1m/usr/src/ultralytics/runs/detect/train[0m
 Ultralytics YOLOv8.0.228 🚀 Python-3.10.13 torch-2.1.0 CPU (Intel Core(TM) i7-10700T 2.00GHz)
 YOLOv8n summary (fused): 168 layers, 3006233 parameters, 0 gradients, 8.1 GFLOPs
@@ -100,7 +100,7 @@ YOLOv8n summary (fused): 168 layers, 3006233 parameters, 0 gradients, 8.1 GFLOPs
 
 [34m[1mONNX:[0m starting export with onnx 1.15.0 opset 17...
 [34m[1mONNX:[0m simplifying with onnxsim 0.4.35...
-[34m[1mONNX:[0m export success ✅ 1.5s, saved as '/usr/src/ultralytics/runs/detect/train/weights/best.onnx' (11.6 MB)
+[34m[1mONNX:[0m export success ✅ 1.2s, saved as '/usr/src/ultralytics/runs/detect/train/weights/best.onnx' (11.6 MB)
 [34m[1mTensorFlow SavedModel:[0m running 'onnx2tf -i "/usr/src/ultralytics/runs/detect/train/weights/best.onnx" -o "/usr/src/ultralytics/runs/detect/train/weights/best_saved_model" -nuo --verbosity info -oiqt -qt per-tensor'
 
 [07mAutomatic generation of each OP name started[0m ========================================
@@ -125,12 +125,12 @@ fully_quantize: 0, inference_type: 6, input_inference_type: INT8, output_inferen
 [32mFull INT8 Quantization tflite output complete![0m
 [32mINT8 Quantization with int16 activations tflite output complete![0m
 [32mFull INT8 Quantization with int16 activations tflite output complete![0m
-[34m[1mTensorFlow SavedModel:[0m export success ✅ 122.9s, saved as '/usr/src/ultralytics/runs/detect/train/weights/best_saved_model' (38.6 MB)
+[34m[1mTensorFlow SavedModel:[0m export success ✅ 114.7s, saved as '/usr/src/ultralytics/runs/detect/train/weights/best_saved_model' (38.6 MB)
 
 [34m[1mTensorFlow Lite:[0m starting export with tensorflow 2.13.1...
 [34m[1mTensorFlow Lite:[0m export success ✅ 0.0s, saved as '/usr/src/ultralytics/runs/detect/train/weights/best_saved_model/best_int8.tflite' (3.0 MB)
 
-Export complete (124.4s)
+Export complete (116.2s)
 Results saved to [1m/usr/src/ultralytics/runs/detect/train/weights[0m
 Predict:         yolo predict task=detect model=/usr/src/ultralytics/runs/detect/train/weights/best_saved_model/best_int8.tflite imgsz=640 int8 
 Validate:        yolo val task=detect model=/usr/src/ultralytics/runs/detect/train/weights/best_saved_model/best_int8.tflite imgsz=640 data=./dataset/data.yaml int8 

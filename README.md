@@ -53,8 +53,10 @@ AiQuickDeployX-Driver
 
     #從github url安裝
     module.Install(url='https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git')
-   
-   #從本機目錄安裝
+
+    #從index.json的資訊安裝
+    module.Install(module_name='Pytorch-YOLOv8n_cls')
+    #從本機目錄安裝
     module.Install(local_path='C:/Users/B20447/Documents/GitHub/AiQuickDeployX-Driver/data/Pytorch-YOLOv8m_det')
     ```
 ### 附錄文件

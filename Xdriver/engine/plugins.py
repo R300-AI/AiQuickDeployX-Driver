@@ -1,41 +1,21 @@
-import Xdriver, os, subprocess, shutil, json, stat
+import Xdriver, os, subprocess, shutil
 from Xdriver.cfg.driver import Driver
+from .installers import Module_Installer
 from pathlib import Path
-from git import Repo
 
 class Plugins(Driver):
     def __init__(self):
         super().__init__()
         self.__modules__ = self.search_modules()
 
-    def Install(self, url=None, local_path=None):
+    def Install(self, url=None, module_name=None, local_path=None):
+        processor = Module_Installer(self.xdriver_dir)
         if url != None:
-            module_name = url.replace('.git', '').split('/')[-1]
-            local_path = "{dir}/plugins/temp".format(dir=self.xdriver_dir)
-            spec_path = "{local_path}/spec.json".format(local_path=local_path)
-            self.chmod(local_path)
-            if Path(local_path).exists():
-                shutil.rmtree(local_path)
-            Repo.clone_from(url, local_path)
-            spec = json.load(open(spec_path))
-            dtype, task =  spec['dtype'], spec['task']
-            framework, model = module_name.split('-')
-            target_path = "{xdriver_dir}/plugins/{dtype}/{task}/{framework}/{model}".format(xdriver_dir=self.xdriver_dir, dtype=dtype, task=task, framework=framework, model=model)
-            if Path(target_path).exists():
-                shutil.rmtree(target_path)
-            shutil.move(local_path, target_path)
-            
+            processor.install_from_url(url)
+        elif module_name != None:
+            processor.install_from_module(module_name)
         elif local_path != None:
-            module_name = local_path.split('/')[-1]
-            spec_path = "{local_path}/spec.json".format(local_path=local_path)
-            spec = json.load(open(spec_path))
-            dtype, task =  spec['dtype'], spec['task']
-            framework, model = module_name.split('-')
-            target_path = "{xdriver_dir}/plugins/{dtype}/{task}/{framework}/{model}".format(xdriver_dir=self.xdriver_dir, dtype=dtype, task=task, framework=framework, model=model)
-            if Path(target_path).exists():
-                shutil.rmtree(target_path)
-            self.chmod(local_path)
-            shutil.copy(local_path, target_path)
+            processor.install_from_path(local_path)
         
     def Load(self, module, username):
         if module in self.__modules__.keys():
@@ -53,13 +33,6 @@ class Plugins(Driver):
         subprocess.run(["bash ", entrypoint, '-u', self.username, '-d', dataset, '-l', log, '-o', output])
         shutil.rmtree(dataset)
         print('finish')
-
-    def chmod(self, path):
-        for root, dirs, files in os.walk(path):  
-            for dir in dirs:
-                os.chmod(os.path.join(root, dir), stat.S_IRWXU)
-            for file in files:
-                os.chmod(os.path.join(root, file), stat.S_IRWXU)
 
     def search_modules(self):
         print('【Plugins】Existing Modules:')

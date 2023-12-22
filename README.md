@@ -47,5 +47,5 @@ AiQuickDeployX-Driver
     module.Run(dataset='HardHat')
     ```
     
-### 開發文件
+### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)

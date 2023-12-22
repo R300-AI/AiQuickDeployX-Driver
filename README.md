@@ -44,6 +44,16 @@ AiQuickDeployX-Driver
     #執行訓練
     module.Run(dataset='HardHat')
     ```
+* 安裝訓練模組。
+   ```python
+    from Xdriver import Plugins
     
+    module = Plugins()
+
+    #從github API安裝
+    module.Install(url='https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git')
+   #從本機目錄安裝
+    module.Install(local_path='C:/Users/B20447/Documents/GitHub/AiQuickDeployX-Driver/data/Pytorch-YOLOv8m_det')
+    ```
 ### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)

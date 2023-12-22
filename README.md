@@ -46,5 +46,4 @@ AiQuickDeployX-Driver
     ```
     
 ### 開發文件
-* [[2] How to Access Database for Training and Orginize Engine Plugins?]()
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)

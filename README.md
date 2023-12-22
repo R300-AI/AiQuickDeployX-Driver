@@ -21,7 +21,7 @@ AiQuickDeployX-Driver
 
 
 #### 快速開始
-* 從Roboflow取得HardHat範例資料集寫入MongoDB。以Vision2D/ObjectDetection任務類型為例。
+* 從線上取得HardHat範例資料集寫入MongoDB。以Vision2D/ObjectDetection任務類型為例。
     ```python
     import Xdriver
     from Xdriver import MongoDB, Plugins

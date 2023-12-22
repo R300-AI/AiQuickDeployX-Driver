@@ -7,7 +7,7 @@ class Roboflow_APIs():
         self.dtype = dtype
         self.task = task
 
-    def download(self, path):
+    def Download(self, path):
         if self.dtype == 'Vision2D':
             if self.task == 'ImageClassification':
                 print(self.task, 'not supported for Roboflow_APIs.download() yet.')
@@ -28,5 +28,5 @@ class Roboflow_APIs():
             if self.task == 'SemanticSegmentation':
                 print(self.task, 'not supported for Roboflow_APIs.download() yet.')
                 pass
-        print('【Roboflow_APIs】{dtype}/{task} dataset downloaded (target_path).'.format(dtype=self.dtype, task=self.task, target_path=target_path))
+        print('【Roboflow APIs】{dtype}/{task} dataset downloaded to {target_path}.'.format(dtype=self.dtype, task=self.task, target_path=target_path))
         return target_path

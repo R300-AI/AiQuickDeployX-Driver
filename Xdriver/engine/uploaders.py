@@ -16,7 +16,8 @@ class YOLOv8_Uploader():
                     paired_file.append([image, label])
         return paired_file
 
-    def Upload(self, dataset_path, retrain_origin):
+    def Upload(self, dataset_path, remain_folder):
+        print('Dataset Uploading...')
         if self.dtype == 'Vision2D':
             if self.task == 'ImageClassification':
                 print(self.task, 'not supported for YOLOv8_Uploader() yet.')
@@ -32,24 +33,25 @@ class YOLOv8_Uploader():
                         image_names, label_names = os.listdir(image_path), os.listdir(label_path)
                         paired_samples_temp = self.search_paired_files(image_names, label_names)
                         paired_samples[subset] = [[os.path.join(image_path, i[0]), os.path.join(label_path, i[1])] for i in paired_samples_temp]
-                        print("【YOLOv8_Uploader】find ", len(paired_samples[subset]), 'paired {subset} samples.'.format(subset=subset))
+                        print("find ", len(paired_samples[subset]), 'paired {subset} samples.'.format(subset=subset))
                         if len(paired_samples[subset]) == 0:
                             flag = False
                     if flag == True:
-                        print('【YOLOv8_Uploader】Samples Uploading...')
+                        print('Update Collections...')
                         self.upload_samples(dataset_path, subset, paired_samples)
-                        print('【YOLOv8_Uploader】Config SystemInfo...')
+                        print('Config SystemInfo...')
                         self.upload_systeminfo(dataset_path)
 
-                        if retrain_origin == False and os.path.exists(dataset_path)==True:
+                        if remain_folder == False and os.path.exists(dataset_path)==True:
                             shutil.rmtree(dataset_path)
-                        print('【YOLOv8_Uploader】Finished.')
+                        print('Finished.')
                     else:
-                        print("【YOLOv8_Uploader】Paired samples insufficient, please varify your dataset.")
-
+                        print("Paired samples insufficient, please varify your dataset.")
+                
             elif self.task == 'SemanticSegmentation':
                 print(self.task, 'not supported for Uploader() yet.')
                 pass
+            
 
     def is_yolov8_format(self, dataset_path):
         flag = True
@@ -59,17 +61,17 @@ class YOLOv8_Uploader():
                 data =yaml.safe_load(f)
                 for info in ['names', 'nc', 'features', 'train', 'test', 'val']:
                     if info not in data.keys():
-                        print("【YOLOv8_Uploader】Attribute '", info, "'is not in data.yaml, please varify your dataset.")
+                        print("Attribute '", info, "'is not in data.yaml, please varify your dataset.")
                         flag = False
             for subset in ['train', 'test', 'valid']:
                 subset_path = os.path.join(Path(dataset_path), '{subset}'.format(subset=subset))
                 image_path = os.path.join(Path(dataset_path), '{subset}/images'.format(subset=subset))
                 label_path = os.path.join(Path(dataset_path), '{subset}/labels'.format(subset=subset))
                 if os.path.exists(subset_path) != True or os.path.exists(image_path) != True or os.path.exists(label_path) != True:
-                    print("【YOLOv8_Uploader】Subset '", subset, "' directory is invalid, please varify your dataset.")
+                    print("Subset '", subset, "' directory is invalid, please varify your dataset.")
                     flag = False
         else:
-            print("【YOLOv8_Uploader】data.yaml is not exist (", data_path, "), please varify your dataset.")
+            print("data.yaml is not exist (", data_path, "), please varify your dataset.")
             flag = False
         return flag
 
@@ -113,9 +115,8 @@ class YOLOv8_Uploader():
         info = {"dtype": self.dtype, "task": self.task, "nc": data['nc'], "names": data['names'], "features": data['features']}
         self.client['SystemInfo'][dataset].insert_one(info)
 
-        print('\n【SUMMARY】')
+        print('\n【YOLOv8_Uploader】')
         print('Dataset:', dataset)
         print('- Amount of Samples:',len(list(gridfs.GridFS(self.client['Images'], collection=dataset).find())))
         print('- Amount of Boxes:', self.client['Labels'][dataset].count_documents({}))
-        print('finished.')
 

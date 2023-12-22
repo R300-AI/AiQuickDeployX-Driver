@@ -33,7 +33,7 @@ AiQuickDeployX-Driver
     client = MongoDB('localhost', '27017', 'admin', 'admin')
     client.Push(dtype='Vision2D', task='ObjectDetection', dataset_path=dataset_path)
     ```
-* 為使用者建立訓練模組，並從MongoDB拉取資料集來執行訓練。
+* 為使用者建立訓練模組，並從MongoDB拉取資料集來進行訓練。
     ```python
     import Xdriver
     from Xdriver import MongoDB, Plugins

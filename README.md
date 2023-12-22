@@ -17,7 +17,8 @@ AiQuickDeployX-Driver
 ```
 
 ### 使用說明
-![TimelineCycle (1)](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/45c77655-f30d-4f00-9f1e-c8549199628a)
+![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
+
 
 #### 快速開始
 * 從Roboflow取得HardHat範例資料集寫入MongoDB。以Vision2D/ObjectDetection任務類型為例。

@@ -1,0 +1,17 @@
+dtype: Vision2D
+features:
+- class
+- x_center
+- y_center
+- width
+- height
+names:
+- head
+- helmet
+- person
+nc: 3
+task: ObjectDetection
+test: /usr/src/ultralytics/dataset/test/images
+train: /usr/src/ultralytics/dataset/train/images
+vaild: vaild/images
+val: /usr/src/ultralytics/dataset/valid/images

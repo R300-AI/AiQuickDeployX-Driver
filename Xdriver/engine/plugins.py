@@ -30,7 +30,7 @@ class Plugins(Driver):
 
     def Run(self, dataset=None):
         entrypoint, dataset, output, log = self.tmp_config(self.username, dataset, True)
-        subprocess.run(["bash ", entrypoint, '-u', self.username, '-d', dataset, '-l', log, '-o', output])
+        subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset, '-l', log, '-o', output])
         shutil.rmtree(dataset)
         print('finish')
 
@@ -38,6 +38,7 @@ class Plugins(Driver):
         print('【Plugins】Existing Modules:')
         modules = {}
         modules_dir = self.xdriver_dir + '/plugins'
+        print(modules_dir)
         for dtype in [f for f in os.listdir(modules_dir) if os.path.isdir(os.path.join(modules_dir, f))]:
             dtype_dir = modules_dir + '/' + dtype
             for task in [f for f in os.listdir(dtype_dir) if os.path.isdir(os.path.join(dtype_dir, f))]:
@@ -53,6 +54,7 @@ class Plugins(Driver):
 
     def tmp_config(self, username, dataset, initialize = True):
         self.entrypoint =  os.path.relpath('./' + self.module_dir + '/run.sh', os.getcwd()).replace('\\', '/')
+        self.entrypoint = self.entrypoint.replace(os.getcwd()[1:], os.getcwd())
         self.dataset =  (self.dataset_dir + '/' + dataset).replace('\\', '/')
         self.output =  (self.output_dir + '/' + dataset).replace('\\', '/')
         self.log =  (self.log_dir + '/' + dataset + '.log').replace('\\', '/')

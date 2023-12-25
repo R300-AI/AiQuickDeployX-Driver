@@ -7,7 +7,7 @@
 
 #### 2. 透過Bash指令從安裝mongodb指定版本
   ```
-  bash install_mongodb.sh   #內含詳細的配置參數 (root的帳號密碼皆預設為admin)
+  bash ./tests/install_mongodb.sh   #內含詳細的配置參數 (root的帳號密碼皆預設為admin)
   ```
 
 #### 3. 完成後即可看到mongodb服務已經連結到本機的`27017`埠，請確保服務保持開啟狀態

@@ -8,7 +8,6 @@ class Plugins(Driver):
         super().__init__()
         self.__modules__ = self.List_Modules()
 
-<<<<<<< HEAD:Xdriver/Xdriver/engine/plugins.py
     def List_Modules(self):
         print('【Plugins】Existing Modules:')
         modules = {}

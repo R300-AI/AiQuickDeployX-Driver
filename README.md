@@ -1,10 +1,6 @@
 ### 開發環境
-1. Bash Shell ([安裝](https://itsfoss.com/install-bash-on-windows/))
-2. Python Compiler>=3.8, PIP & Library ([安裝](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/Python%20Installation.md))
-3. Github Agent ([安裝](https://desktop.github.com/))
-4. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
-5. MongoDB Container ([安裝](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/MongoDB%20installation.md))
-    
+1. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
+
 ### 目錄結構
 ```
 AiQuickDeployX-Driver

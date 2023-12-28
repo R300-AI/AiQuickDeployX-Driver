@@ -8,10 +8,41 @@ class Plugins(Driver):
         super().__init__()
         self.__modules__ = self.List_Modules()
 
+<<<<<<< HEAD:Xdriver/Xdriver/engine/plugins.py
     def List_Modules(self):
+=======
+    def Install(self, url=None, module_name=None, local_path=None):
+        processor = Module_Installer(self.xdriver_dir)
+        if url != None:
+            processor.install_from_url(url)
+        elif module_name != None:
+            processor.install_from_module(module_name)
+        elif local_path != None:
+            processor.install_from_path(local_path)
+        
+    def Load(self, module, username):
+        if module in self.__modules__.keys():
+            self.dtype, self.task, self.username = self.__modules__[module]["dtype"], self.__modules__[module]["task"], username
+            self.module_dir = self.__modules__[module]["module_dir"]
+            self.dataset_dir = self.module_dir + '/tmp/datasets/' + username
+            self.log_dir = self.module_dir + '/tmp/logs/' + username
+            self.output_dir = self.module_dir + '/tmp/outputs/' + username
+            return {"dataset_dir": self.dataset_dir, "dtype": self.dtype, "task": self.task, "username": self.username}
+        else:
+            print('engine not found, please check your configuration.')
+
+    def Run(self, dataset=None):
+        entrypoint, dataset, output, log = self.tmp_config(self.username, dataset, True)
+        subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset, '-l', log, '-o', output])
+        shutil.rmtree(dataset)
+        print('finish')
+
+    def search_modules(self):
+>>>>>>> 729a03fccc461d68076e40e600e280a3e53a5cfe:Xdriver/engine/plugins.py
         print('【Plugins】Existing Modules:')
         modules = {}
         modules_dir = self.xdriver_dir + '/plugins'
+        print(modules_dir)
         for dtype in [f for f in os.listdir(modules_dir) if os.path.isdir(os.path.join(modules_dir, f))]:
             dtype_dir = modules_dir + '/' + dtype
             for task in [f for f in os.listdir(dtype_dir) if os.path.isdir(os.path.join(dtype_dir, f))]:
@@ -61,6 +92,7 @@ class Plugins(Driver):
 
     def tmp_config(self, username, dataset, initialize = True):
         self.entrypoint =  os.path.relpath('./' + self.module_dir + '/run.sh', os.getcwd()).replace('\\', '/')
+        self.entrypoint = self.entrypoint.replace(os.getcwd()[1:], os.getcwd())
         self.dataset =  (self.dataset_dir + '/' + dataset).replace('\\', '/')
         self.output =  (self.output_dir + '/' + dataset).replace('\\', '/')
         self.log =  (self.log_dir + '/' + dataset + '.log').replace('\\', '/')

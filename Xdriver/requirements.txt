@@ -1,0 +1,7 @@
+GitPython
+pathlib
+ruamel-yaml
+Pillow
+roboflow
+pymongo
+flask

@@ -1,0 +1,9 @@
+from typing import Literal
+
+__dtype__ = Literal['Vision2D']
+__task__ = Literal['ObjectDetection']
+
+from Xdriver.engine import MongoDB, Plugins
+from Xdriver.cfg import Driver
+
+__all__ = "MongoDB", "Plugins", "Driver"

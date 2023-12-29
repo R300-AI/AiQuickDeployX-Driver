@@ -1,6 +1,6 @@
 ### 環境需求
-1. WSL or Linux OS *避免路徑規則錯誤
-2. Python & Bash Compiler *執行Scripts所需的工具
+1. WSL or Linux OS **避免路徑規則錯誤*
+2. Python & Bash Compiler **執行Scripts所需的工具*
 3. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
 
 ### 目錄結構

@@ -25,6 +25,15 @@ bash ./build/install_mongodb.sh
 ```bash
 bash ./build/install_mongodb.sh
 ```
+#### 快速開始
+* 啟動Xdriver伺服器，監聽5000port
+```bash
+bash ./auto_up.sh
+```
+* 測試APIs功能是否正常
+```bash
+python ./tests/Restful_API_Demo.py
+```
 
 ### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)

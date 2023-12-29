@@ -20,3 +20,6 @@ AiQuickDeployX-Driver
 
 ### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)
+  
+### What's Next?
+* [Kubernete](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)

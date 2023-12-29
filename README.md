@@ -1,5 +1,7 @@
-### 開發環境
-1. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
+### 環境需求
+1. WSL or Linux OS
+2. Python & Bash Compiler
+3. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
 
 ### 目錄結構
 ```

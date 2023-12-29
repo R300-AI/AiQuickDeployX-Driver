@@ -10,15 +10,16 @@ do
 done
 WORK_DIR=$(readlink -f .)     #from root to work_dir
 MODULE_DIR=$(dirname "$0")    #from work_dir to run.sh
+DOCKER="podman --storage-opt mount_program=/usr/bin/fuse-overlayfs"
 
 # Config Image
 echo "Start to build ${MODULE_NAME} docker..."
 DATASET_NAME=$(python3 -c "data='${DATASET}'; print(data.split('/')[-1])")
 MODULE_NAME=$(python3 -c "import json; data=json.load(open('${MODULE_DIR}/spec.json')); print(data['name'].lower())")
 CONTAINER_NAME=$(python3 -c "print('${USERNAME}_${DATASET_NAME}_${MODULE_NAME}'.replace('/','_'))")
-docker rmi -f $MODULE_NAME    
-docker rm -f $CONTAINER_NAME 
-docker build -f $MODULE_DIR/docker/Dockerfile . -t $MODULE_NAME
+$DOCKER rmi -f $MODULE_NAME    
+$DOCKER rm -f $CONTAINER_NAME 
+$DOCKER build -f $MODULE_DIR/docker/Dockerfile . -t $MODULE_NAME
 echo "${MODULE_NAME} docker has been build."
 
 # Run Container
@@ -28,4 +29,4 @@ LOG_DIR=$(python3 -c "print('${WORK_DIR}/${MODULE_DIR}' + '${LOG}'.split('${MODU
 OUTPUT_DIR=$(python3 -c "print('${WORK_DIR}/${MODULE_DIR}' + '${OUTPUT}'.split('${MODULE_DIR}')[-1])")
 ENGINE_DIR=$(python3 -c "print('${WORK_DIR}/${MODULE_DIR}' + '/engine')")
 
-docker container run --name $CONTAINER_NAME -it -v $OUTPUT_DIR:/usr/src/ultralytics/benchmark -v $DATASET_DIR:/usr/src/ultralytics/dataset -v $ENGINE_DIR:/usr/src/ultralytics/engine $MODULE_NAME | tee -a $LOG_DIR
+$DOCKER container run --storage-opt mount_program=/usr/bin/fuse-overlayfs --name $CONTAINER_NAME -it -v $OUTPUT_DIR:/usr/src/ultralytics/benchmark -v $DATASET_DIR:/usr/src/ultralytics/dataset -v $ENGINE_DIR:/usr/src/ultralytics/engine $MODULE_NAME | tee -a $LOG_DIR

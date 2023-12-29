@@ -16,7 +16,10 @@ AiQuickDeployX-Driver
 ### 使用說明
 ![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
 
-#### 快速開始
+#### 快速安裝
+```bash
+bash ./build/install_mongodb.sh
+```
 
 ### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)

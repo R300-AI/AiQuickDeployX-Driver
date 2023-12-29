@@ -21,12 +21,12 @@ AiQuickDeployX-Driver
 ```bash
 bash ./build/install_mongodb.sh
 ```
-* 於本機環境安裝Xdriver的Python相依套件
+* 安裝Xdriver的Python相依套件於本機環境
 ```bash
 bash ./build/install_mongodb.sh
 ```
 #### 快速開始
-* 啟動Xdriver伺服器，監聽5000port
+* 啟動Xdriver伺服器(監聽 5000port)
 ```bash
 bash ./auto_up.sh
 ```

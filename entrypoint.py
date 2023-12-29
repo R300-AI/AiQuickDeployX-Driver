@@ -73,3 +73,10 @@ def uninstall(): #params:[module] / outputs:[modules]
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
+
+#from Xdriver import MongoDB, Plugins
+#module = Plugins()
+#client = MongoDB('localhost', '27017', 'admin', 'admin')
+
+#client.Pull(dataset='HardHat', metadata=module.Load('Pytorch/YOLOv8n', username='markov'))
+#module.Run(dataset='HardHat')

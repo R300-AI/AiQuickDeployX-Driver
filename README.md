@@ -17,6 +17,11 @@ AiQuickDeployX-Driver
 ![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
 
 #### 快速安裝
+* 安裝並啟動MongoDB Client的Docker容器
+```bash
+bash ./build/install_mongodb.sh
+```
+* 於本機環境安裝Xdriver的Python相依套件
 ```bash
 bash ./build/install_mongodb.sh
 ```

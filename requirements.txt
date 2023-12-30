@@ -6,3 +6,5 @@ Pillow
 roboflow
 pymongo
 flask
+requests
+ultralytics

@@ -8,6 +8,7 @@ class YOLOv8_Exporter():
 
     def Download(self, dataset, target_path, username) -> str:
         target_path = target_path + '/{dataset}'.format(dataset=dataset)
+        print(self.dtype, self.task, username)
         processor = YOLOv8_Builder(self.dtype, self.task)
         processor.make(target_path)
         if self.dtype == 'Vision2D':

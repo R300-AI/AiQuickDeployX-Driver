@@ -10,7 +10,9 @@ import Xdriver, pymongo, gridfs, os, yaml
 class MongoDB(Driver):
     def __init__(self, user):
         super().__init__()
-        self.client = pymongo.MongoClient("mongodb://admin:admin@mongo:27017/?authSource=admin")
+        self.client = pymongo.MongoClient("mongodb://{hostname}:{port}/".format(hostname='localhost', port='27017'),
+                                          username='admin',
+                                          password='admin')
         self.user = user
 
     def List_Datasets(self):
@@ -26,8 +28,6 @@ class MongoDB(Driver):
 
     def Remove(self, dataset, dtype: Xdriver.__dtype__, task: Xdriver.__task__):
         result = self.client['SystemInfo'][dataset].find_one()
-        print(result)
-        print(result['user'], self.user, result['dtype'], dtype, result['task'], task)
         if result['user'] == self.user and result['dtype'] == dtype and result['task'] == task:
             if dataset + '.files' in self.client['Images'].list_collection_names():
                 self.client['Images'][dataset + '.files'].drop(); 
@@ -46,7 +46,7 @@ class MongoDB(Driver):
         return self.List_Datasets()
 
     def Pull(self, dataset=None, metadata=None):
-        if dataset in self.__datasets__.keys():
+        if dataset in self.List_Datasets():
             if self.__datasets__[dataset]['dtype'] == metadata["dtype"] and self.__datasets__[dataset]['task'] == metadata["task"]:
                 processor = YOLOv8_Exporter(self.client, metadata["dtype"], metadata["task"])
                 processor.Download(dataset, metadata["dataset_dir"], metadata["username"])

@@ -12,7 +12,6 @@ class Plugins(Driver):
         print('【Plugins】Existing Modules:')
         modules = {}
         modules_dir = self.xdriver_dir + '/plugins'
-        print(modules_dir)
         for dtype in [f for f in os.listdir(modules_dir) if os.path.isdir(os.path.join(modules_dir, f))]:
             dtype_dir = modules_dir + '/' + dtype
             for task in [f for f in os.listdir(dtype_dir) if os.path.isdir(os.path.join(dtype_dir, f))]:
@@ -45,9 +44,9 @@ class Plugins(Driver):
 
     def Run(self, dataset=None):
         entrypoint, dataset, output, log = self.tmp_config(self.username, dataset, True)
+        subprocess.run(['./Xdriver/dos2unix.exe', entrypoint.replace(self.xdriver_dir, '.')])
         subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset, '-l', log, '-o', output])
         shutil.rmtree(dataset)
-        print('finish')
         
     def Load(self, module, username):
         if module in self.__modules__.keys():

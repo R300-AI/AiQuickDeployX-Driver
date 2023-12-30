@@ -2,7 +2,7 @@ import os, shutil
 from pathlib import Path
 
 class YOLOv8_Builder():
-    def __init__(self, user, dtype, task):
+    def __init__(self, dtype, task):
         self.dtype = dtype
         self.task = task
         

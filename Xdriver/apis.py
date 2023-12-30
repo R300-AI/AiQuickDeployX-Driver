@@ -13,7 +13,7 @@ class Roboflow_APIs():
             if self.task == 'ObjectDetection':
                 rf = Roboflow(api_key="FwJ74nDll40feRx99ICJ")
                 project = rf.workspace("itri-1fpyr").project("hard-hat-sample-3ezzq")
-                target_path = os.path.join(Path(path + '/' + user + '/datasets'), dataset)
+                target_path = os.path.join(Path(path + '/data/datasets/' + user), dataset)
                 project.version(1).download("yolov8", location=target_path)
                 #補足不齊的資訊(這個資料必須包含：names, nc, features, train, test, val六種屬性)
                 with open(target_path + '/data.yaml', 'r') as f:

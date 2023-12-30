@@ -8,14 +8,16 @@ do
         o) OUTPUT=${OPTARG};;    #輸出資料夾的絕對路徑
     esac
 done
+
 WORK_DIR=$(readlink -f .)     #from root to work_dir
 MODULE_DIR=$(dirname "$0")    #from work_dir to run.sh
 
 # Config Image
 echo "Start to build ${MODULE_NAME} docker..."
 DATASET_NAME=$(python3 -c "data='${DATASET}'; print(data.split('/')[-1])")
-MODULE_NAME=$(python3 -c "import json; data=json.load(open('${MODULE_DIR}/spec.json')); print(data['name'].lower())")
-CONTAINER_NAME=$(python3 -c "print('${USERNAME}_${DATASET_NAME}_${MODULE_NAME}'.replace('/','_'))")
+MODULE_NAME=$(python3 -c "data='${MODULE_DIR}'.split('/'); print((data[-2] + '_'+ data[-1]).lower())")
+CONTAINER_NAME=$(python3 -c "data='${MODULE_DIR}'.split('/'); print(('${USERNAME}_${DATASET_NAME}_' + data[-2] + '_'+ data[-1]).replace('/','_'))")
+
 docker rmi -f $MODULE_NAME    
 docker rm -f $CONTAINER_NAME 
 docker build -f $MODULE_DIR/docker/Dockerfile . -t $MODULE_NAME

@@ -3,11 +3,11 @@
 ### 目錄結構
 ```
 AiQuickDeployX-Driver
-    ├─ Xdriver                   # 上圖Xdriver的主系統
-    ├─ build                     # 系統安裝的Script
-    ├─ data                      # 用於存放Demo的訓練模組、資料集
-    ├─ docs                      # 所有開發文件
-    ├─ plugins                   # 訓練模組的存放路徑(由Xdriver定義管理)
+    ├─ Xdriver/                  # 上圖Xdriver的主系統
+    ├─ build/                    # 系統安裝的Script
+    ├─ data/                     # 用於存放Demo的訓練模組、資料集
+    ├─ docs/                     # 所有開發文件
+    ├─ plugins/                  # 訓練模組的存放路徑(由Xdriver定義管理)
     ├─ activate.sh               # 自動啟動後端伺服器的Script
     ├─ requirements.txt          # 後端的相依套件
     ├─ entrypoint.py             # 後端的入口

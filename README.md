@@ -24,8 +24,4 @@ bash ./activate.sh
   
 ### What's Next?
 * [透過Kubernete分散化系統資源](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
-    ├─ build              # MongoDB和Xdriver的Docker安裝指令
-    ├─ docker             # Xdriver系統環境的源碼
-    ├─ docs               # 文件資源
-    └─ data               # Web API功能測試的Python執行檔
-```
+

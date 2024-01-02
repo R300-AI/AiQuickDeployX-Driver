@@ -18,3 +18,5 @@
 | /install  | `url:str`, `tag:str`, `local:str` | `modules:dict(metadata)`  | 新增模組，選用其一種來源即可。完成後回傳該使用者可存取的訓練模組 |
 | /uninstall  | `module:str` | `modules:list(str)`  | 透過名稱刪除模組。完成後回傳現存的訓練模組 |
 | /run  | `user:str`, `dataset:str`, `module:str` | `outputs:None`  | 執行模組。輸出(Logs、模型檔)再依檔案產出、下載方式決定 |
+
+實際範例可參考./entrypoint.py中每個對應函數的註解。

@@ -15,11 +15,8 @@ bash ./build/install_mongodb.sh
 ```bash
 bash ./activate.sh
 ```
+若有必要可以透過`python ./tests/Restful_API_Demo.py`測試RestfulAPI的功能是否正常
 
-* 測試APIs功能是否正常
-```bash
-python ./tests/Restful_API_Demo.py
-```
 
 ### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)

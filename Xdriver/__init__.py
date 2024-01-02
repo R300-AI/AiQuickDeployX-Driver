@@ -1,5 +1,4 @@
 from typing import Literal
-
 __dtype__ = Literal['Vision2D']
 __task__ = Literal['ObjectDetection']
 __format__ = Literal['YOLOv8']

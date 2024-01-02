@@ -7,15 +7,15 @@
 ![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/ba2f144e-8392-495f-b155-76399b8646ef)
 
 #### 安裝後端
-* 安裝並啟動MongoDB Client的Docker容器
+* 安裝MongoDB-docker
 ```bash
 bash ./build/install_mongodb.sh
 ```
-#### 快速開始
-* 透過
+* 啟動Xdriver伺服器
 ```bash
 bash ./activate.sh
 ```
+
 * 測試APIs功能是否正常
 ```bash
 python ./tests/Restful_API_Demo.py

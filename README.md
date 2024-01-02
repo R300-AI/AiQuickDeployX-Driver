@@ -14,6 +14,8 @@ AiQuickDeployX-Driver
 ```
 
 ### 使用說明
+![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/40b3879f-8ba3-4fe1-bdd5-352a72660738)
+
 ![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
 
 #### 安裝

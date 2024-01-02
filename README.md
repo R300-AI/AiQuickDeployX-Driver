@@ -19,9 +19,10 @@ bash ./activate.sh
 
 
 ### 附錄文件
-* [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)
+* [ITRI LOGO](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)
+* [RestfulAPI使用手冊](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/APIs.md)
 * [開發者手冊](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/White_Paper.md)
   
 ### What's Next?
-* [透過Kubernete分散化系統資源](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
+* [透過Kubernete分散化系統模組+規範模組開發方式](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
 

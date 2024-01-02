@@ -1,12 +1,12 @@
-### 環境需求
+### 後端環境需求
 1. WSL or Linux OS    **避免路徑規則的錯誤*
 2. Python & Bash Compiler    **執行Scripts所需的工具*
 3. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
 
-### 系統說明
+### 系統架構
 ![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/ba2f144e-8392-495f-b155-76399b8646ef)
 
-#### 安裝後端
+#### 快速開始
 * 安裝MongoDB-docker
 ```bash
 bash ./build/install_mongodb.sh

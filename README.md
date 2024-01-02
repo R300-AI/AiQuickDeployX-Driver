@@ -3,21 +3,11 @@
 2. Python & Bash Compiler    **執行Scripts所需的工具*
 3. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
 
-### 使用說明
+### 系統說明
 ![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/ba2f144e-8392-495f-b155-76399b8646ef)
 
 
-![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
 
-### 目錄結構
-```
-AiQuickDeployX-Driver
-    ├─ Xdriver            # Xdriver的系統核心
-    ├─ build              # MongoDB和Xdriver的Docker安裝指令
-    ├─ docker             # Xdriver系統環境的源碼
-    ├─ docs               # 文件資源
-    └─ data               # Web API功能測試的Python執行檔
-```
 
 #### 安裝
 * 安裝並啟動MongoDB Client的Docker容器
@@ -43,3 +33,15 @@ python ./tests/Restful_API_Demo.py
   
 ### What's Next?
 * [Kubernete](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
+
+  ![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
+
+### 目錄結構
+```
+AiQuickDeployX-Driver
+    ├─ Xdriver            # Xdriver的系統核心
+    ├─ build              # MongoDB和Xdriver的Docker安裝指令
+    ├─ docker             # Xdriver系統環境的源碼
+    ├─ docs               # 文件資源
+    └─ data               # Web API功能測試的Python執行檔
+```

@@ -3,6 +3,12 @@
 2. Python & Bash Compiler    **執行Scripts所需的工具*
 3. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
 
+### 使用說明
+![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/ba2f144e-8392-495f-b155-76399b8646ef)
+
+
+![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
+
 ### 目錄結構
 ```
 AiQuickDeployX-Driver
@@ -12,11 +18,6 @@ AiQuickDeployX-Driver
     ├─ docs               # 文件資源
     └─ data               # Web API功能測試的Python執行檔
 ```
-
-### 使用說明
-![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/40b3879f-8ba3-4fe1-bdd5-352a72660738)
-
-![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
 
 #### 安裝
 * 安裝並啟動MongoDB Client的Docker容器

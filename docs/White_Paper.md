@@ -3,7 +3,7 @@
 ### 目錄結構
 ```
 AiQuickDeployX-Driver
-    ├─ Xdriver                   # Xdriver的主系統
+    ├─ Xdriver                   # 上圖Xdriver的主系統
     ├─ build                     # 系統安裝的Script
     ├─ data                      # 用於存放Demo的訓練模組、資料集
     ├─ docs                      # 所有開發文件

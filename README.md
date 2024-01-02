@@ -6,15 +6,8 @@
 ### 系統說明
 ![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/ba2f144e-8392-495f-b155-76399b8646ef)
 
-
-
-
-#### 安裝
+#### 安裝後端
 * 安裝並啟動MongoDB Client的Docker容器
-```bash
-bash ./build/install_mongodb.sh
-```
-* 安裝Xdriver的Python相依套件於本機環境
 ```bash
 bash ./build/install_mongodb.sh
 ```

@@ -19,4 +19,4 @@
 | /uninstall  | `module:str` | `modules:list(str)`  | 透過名稱刪除模組。完成後回傳現存的訓練模組 |
 | /run  | `user:str`, `dataset:str`, `module:str` | `outputs:None`  | 執行模組。輸出(Logs、模型檔)再依檔案產出、下載方式決定 |
 
-實際範例可參考`./entrypoint.py`中每個對應的函數註解。
+實際範例可參考`./entrypoint.py`中對應的函數註解。

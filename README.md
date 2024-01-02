@@ -12,9 +12,9 @@
 bash ./build/install_mongodb.sh
 ```
 #### 快速開始
-* 啟動Xdriver伺服器(監聽 5000port)
+* 透過
 ```bash
-bash ./auto_up.sh
+bash ./activate.sh
 ```
 * 測試APIs功能是否正常
 ```bash

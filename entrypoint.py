@@ -38,12 +38,12 @@ def info():
 def push():
     """
     【範例】
-    POST: {'user': 'Markov', 'dataset': 'HardHat', 'dtype': 'Vision2D', 'task': 'ObjectDetection'}
+    POST: {'user': 'Markov', 'dataset': 'HardHat'}
     RESPONSE: {'datasets': ['HardHat']}
     """
     from Xdriver import MongoDB
     dialog = request.get_json()
-    user, dataset, dtype, task = dialog['user'], dialog['dataset'], dialog['dtype'], dialog['task']
+    user, dataset, dtype, task = dialog['user'], dialog['dataset'], 'Vision2D', 'ObjectDetection'
 
     client = MongoDB(user)
     datasets_list = client.Push(dataset, dtype, task)
@@ -53,12 +53,12 @@ def push():
 def remove():
     """
     【範例】
-    POST: {'user': 'Markov', 'dataset': 'HardHat', 'dtype': 'Vision2D', 'task': 'ObjectDetection'}
+    POST: {'user': 'Markov', 'dataset': 'HardHat'}
     RESPONSE: {'datasets': ['HardHat']}
     """
     from Xdriver import MongoDB
     dialog = request.get_json()
-    user, dataset, dtype, task = dialog['user'], dialog['dataset'], dialog['dtype'], dialog['task']
+    user, dataset, dtype, task = dialog['user'], dialog['dataset'], 'Vision2D', 'ObjectDetection'
     
     client = MongoDB(user)
     datasets_list = client.Remove(dataset, dtype, task)
@@ -68,7 +68,10 @@ def remove():
 def install(): #params:[url, tag, local] / outputs:[modules]
     """
     【範例】
-    POST: {'url': 'https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git', 'tag': 'Pytorch-YOLOv8n_cls', 'local': 'Pytorch-YOLOv8m_det'}
+    POST: 
+        -  {'url': 'https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git'}
+        -  {'Pytorch-YOLOv8n_cls'}
+        -  {'local': 'Pytorch-YOLOv8m_det'}
     RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
     """
     from Xdriver import Plugins
@@ -117,7 +120,6 @@ def run():
     plugin.Run(dataset='HardHat')
     return {'outputs': 'OK'}
 
-#@app.route('/run', methods=['POST']) #params:[user, dataset, module]
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

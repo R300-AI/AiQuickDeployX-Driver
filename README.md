@@ -20,16 +20,10 @@ bash ./activate.sh
 
 ### 附錄文件
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)
+* [開發者手冊](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/White_Paper.md)
   
 ### What's Next?
 * [透過Kubernete分散化系統資源](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
-
-  ![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
-
-### 目錄結構
-```
-AiQuickDeployX-Driver
-    ├─ Xdriver            # Xdriver的系統核心
     ├─ build              # MongoDB和Xdriver的Docker安裝指令
     ├─ docker             # Xdriver系統環境的源碼
     ├─ docs               # 文件資源

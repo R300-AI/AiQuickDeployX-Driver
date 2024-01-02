@@ -25,9 +25,14 @@ echo "${MODULE_NAME} docker has been build."
 
 # Run Container
 echo "Start to run ${MODULE_NAME} docker..."
-DATASET_DIR=$(python3 -c "print('${WORK_DIR}/${MODULE_DIR}' + '${DATASET}'.split('${MODULE_DIR}')[-1])")
-LOG_DIR=$(python3 -c "print('${WORK_DIR}/${MODULE_DIR}' + '${LOG}'.split('${MODULE_DIR}')[-1])")
-OUTPUT_DIR=$(python3 -c "print('${WORK_DIR}/${MODULE_DIR}' + '${OUTPUT}'.split('${MODULE_DIR}')[-1])")
-ENGINE_DIR=$(python3 -c "print('${WORK_DIR}/${MODULE_DIR}' + '/engine')")
+DATASET_DIR=$(python3 -c "print('${MODULE_DIR}' + '${DATASET}'.split('${MODULE_DIR}')[-1])")
+LOG_DIR=$(python3 -c "print('${MODULE_DIR}' + '${LOG}'.split('${MODULE_DIR}')[-1])")
+OUTPUT_DIR=$(python3 -c "print('${MODULE_DIR}' + '${OUTPUT}'.split('${MODULE_DIR}')[-1])")
+ENGINE_DIR=$(python3 -c "print('${MODULE_DIR}' + '/engine')")
+
+echo "DATASET_DIR: ${DATASET_DIR}"
+echo "LOG_DIR: ${LOG_DIR}"
+echo "OUTPUT_DIR: ${OUTPUT_DIR}"
+echo "ENGINE_DIR: ${ENGINE_DIR}"
 
 docker container run --name $CONTAINER_NAME -it -v $OUTPUT_DIR:/usr/src/ultralytics/benchmark -v $DATASET_DIR:/usr/src/ultralytics/dataset -v $ENGINE_DIR:/usr/src/ultralytics/engine $MODULE_NAME | tee -a $LOG_DIR

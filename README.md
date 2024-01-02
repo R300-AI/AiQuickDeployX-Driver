@@ -24,5 +24,5 @@ bash ./activate.sh
 * [開發者手冊](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/White_Paper.md)
   
 ### What's Next?
-* [透過Kubernete分散化系統模組+規範模組開發方式](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
+* [透過Kubernete分散化系統模組+規範模組開發的方式](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
 

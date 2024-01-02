@@ -22,7 +22,7 @@ bash ./activate.sh
 * [ITRI LOGO附件](https://github.com/R300-AI/AiQuickDeployX-Driver/tree/main/docs/logo/LOGO)
   
 ### What's Next?
-* [Kubernete](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
+* [透過Kubernete分散化系統資源](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
 
   ![Usage](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/908df835-d7a9-44ab-96ce-ff49c58c4851)
 

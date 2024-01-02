@@ -11,7 +11,7 @@
 ```bash
 bash ./build/install_mongodb.sh
 ```
-* 啟動Xdriver伺服器
+* 啟動Xdriver伺服器(第一次啟動可能需要花點時間安裝相依套件...)
 ```bash
 bash ./activate.sh
 ```

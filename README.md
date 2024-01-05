@@ -1,4 +1,4 @@
-### 後端環境需求
+### 環境需求
 1. WSL or Linux OS    **避免路徑規則的錯誤*
 2. Python & Bash Compiler    **執行Scripts所需的工具*
 3. Docker Engine ([安裝](https://docs.docker.com/engine/install/))
@@ -11,7 +11,7 @@
 ```bash
 bash ./build/install_mongodb.sh
 ```
-* 啟動Xdriver伺服器
+* 啟動Xdriver伺服器(第一次啟動可能需要花點時間安裝相依套件...)
 ```bash
 bash ./activate.sh
 ```
@@ -24,5 +24,5 @@ bash ./activate.sh
 * [開發者手冊](https://github.com/R300-AI/AiQuickDeployX-Driver/blob/main/docs/White_Paper.md)
   
 ### What's Next?
-* [透過Kubernete分散化系統模組+規範模組開發方式](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
+* [透過Kubernete分散化系統模組+規範模組開發的方式](https://learn.microsoft.com/zh-tw/azure/aks/intro-kubernetes)
 

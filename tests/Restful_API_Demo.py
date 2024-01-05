@@ -1,5 +1,5 @@
 import requests, json
-"""
+
 #取得dtype, task支援的選項
 res = requests.post('http://localhost:5000/help').content
 print('http://localhost:5000/help', 'OK')
@@ -53,9 +53,10 @@ res = json.loads(requests.post('http://localhost:5000/install', data=data, heade
 data = json.dumps({'module': 'Pytorch/YOLOv8m_det'})
 res = json.loads(requests.post('http://localhost:5000/uninstall', data=data, headers={'Content-Type': 'application/json'}).content)
 print('http://localhost:5000/uninstall', 'OK')
-"""
 
+"""
 #執行使用者指定的訓練過程
 data = json.dumps({'user': 'Markov', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
 res = json.loads(requests.post('http://localhost:5000/run', data=data, headers={'Content-Type': 'application/json'}).content)
 print('http://localhost:5000/remove', 'OK')
+"""

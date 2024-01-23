@@ -120,6 +120,22 @@ def run():
     plugin.Run(dataset='HardHat')
     return {'outputs': 'OK'}
 
+@app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[outputs]
+def logging(): 
+    """
+    【範例】
+    POST: {'user': 'Markov', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
+    RESPONSE: {outputs: ["logs line1", "logs line2", ...]}
+    """
+    from Xdriver import Plugins
+    dialog = request.get_json()
+    user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
+    plugin = Plugins()
+    log_path = plugin.__modules__[module]['module_dir']
+    log_path += '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
+    file = open(log_path, 'r')
+    lines = file.read().splitlines()
+    return {'outputs': lines}
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

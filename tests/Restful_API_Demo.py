@@ -1,5 +1,11 @@
 import requests, json
 
+data = json.dumps({'user': 'Markov', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
+res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
+print('http://localhost:5000/run', 'OK')
+print(res)
+
+"""
 #取得dtype, task支援的選項
 res = requests.post('http://localhost:5000/help').content
 print('http://localhost:5000/help', 'OK')
@@ -22,7 +28,7 @@ res = json.loads(requests.post('http://localhost:5000/info', data=data, headers=
 print('datasets:', list(res['datasets'].keys()))
 print('modules:', list(res['modules'].keys()))
 
-"""
+
 #新增一個HardHat1資料集後再移除
 data = json.dumps({'user': 'admin', 'dataset': 'HardHat1', 'dtype':'Vision2D', 'task':'ObjectDetection'})
 res = json.loads(requests.post('http://localhost:5000/push', data=data, headers={'Content-Type': 'application/json'}).content)

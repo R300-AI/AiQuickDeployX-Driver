@@ -19,6 +19,5 @@
 | /uninstall  | `module:str` | `modules:list(str)`  | 透過名稱刪除模組。完成後回傳現存的訓練模組 |
 | /run  | `user:str`, `dataset:str`, `module:str` | `outputs:None`  | 執行模組，過程可能會花點時間。輸出(Logs、模型檔)再依檔案產出、下載方式決定 |
 | /logging  | `user:str`, `dataset:str`, `module:str` | `outputs:list`  | 索取指定模組輸出過程動態最新的logs |
-![image](https://github.com/R300-AI/AiQuickDeployX-Driver/assets/140595764/3c0a6f68-0557-4ec6-9e42-1bc966ca361b)
 
 實際範例可參考`./entrypoint.py`中對應的函數註解。

@@ -1,6 +1,5 @@
 import requests, json, time, threading
 
-"""
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -33,9 +32,7 @@ data = json.dumps({'user': user, 'dataset': dataset_name, 'dtype':'Vision2D', 't
 res = json.loads(requests.post('http://localhost:5000/remove', data=data, headers={'Content-Type': 'application/json'}).content)
 print("after:", res)
 print('http://localhost:5000/remove', 'OK')
-"""
 
-"""
 print("[測試模組安裝/刪除]")
 res = requests.post('http://localhost:5000/index').content
 index = json.loads(res.decode("utf-8"))
@@ -44,11 +41,7 @@ for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
     data = json.dumps({'url': index[tag]})
     res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
     print('http://localhost:5000/install', tag, '(by url)', 'OK')
-
-    #data = json.dumps({'module': tag})
-    #res = json.loads(requests.post('http://localhost:5000/uninstall', data=data, headers={'Content-Type': 'application/json'}).content)
-    #print('http://localhost:5000/uninstall', tag, 'OK')
-
+    
     data = json.dumps({'tag': tag})
     res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
     print('http://localhost:5000/install', tag, ' (by tag)', 'OK')
@@ -56,11 +49,11 @@ for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
     data = json.dumps({'module': tag})
     res = json.loads(requests.post('http://localhost:5000/uninstall', data=data, headers={'Content-Type': 'application/json'}).content)
     print('http://localhost:5000/uninstall', tag, 'OK')
-"""
 
+print("[測試訓練引擎執行及監測]")
 global flag
 flag = True
-def running():
+def running(user, dataset_name):
     global flag
     flag = True
     data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
@@ -68,15 +61,21 @@ def running():
     print('http://localhost:5000/run', 'OK')
     flag = False
 
+#Add Dataset
+user = 'admin'
+dataset_name = 'HardHat'
+data = json.dumps({'user': user, 'dataset': dataset_name, 'dtype':'Vision2D', 'task':'ObjectDetection'})
+res = json.loads(requests.post('http://localhost:5000/push', data=data, headers={'Content-Type': 'application/json'}).content)
+#Add module
 data = json.dumps({'tag': "Pytorch/YOLOv8n"})
 res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
-t = threading.Thread(target = running)
+#Start Run with thread
+t = threading.Thread(target = running, args=(user, dataset_name))
 t.start()
-"""
+
 while flag:
-    data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
+    data = json.dumps({'user': user, 'dataset': dataset_name, 'module':'Pytorch/YOLOv8n'})
     res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
-    print("lines in logs:", res)
+    print("length of outputs:", len(res['outputs']))
     time.sleep(1)
 print('http://localhost:5000/logging', 'OK')
-"""

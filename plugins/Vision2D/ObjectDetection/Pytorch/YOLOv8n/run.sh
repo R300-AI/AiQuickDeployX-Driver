@@ -10,6 +10,11 @@ do
     esac
 done
 
+echo ""
+echo "USERNAME $USERNAME"
+echo "DATASET $DATASET"
+echo ""
+
 ###############################################
 # 自動建立Docker執行環境，需滿足已下掛件：
 # 1. Docker執行所需掛載的的資料集統一置於DATASET_DIR=./tmp/datasets/$USERNAME/$DATASET
@@ -25,7 +30,11 @@ mkdir $ENGINE_DIR/tmp/logs
 mkdir $ENGINE_DIR/tmp/logs/$USERNAME
 LOG_DIR=$ENGINE_DIR/tmp/logs/$USERNAME/$DATASET.log
 touch $LOG_DIR && > $LOG_DIR
-echo $LOG_DIR
+
+echo ""
+echo "ENGINE_DIR $ENGINE_DIR"
+echo "LOG_DIR $LOG_DIR"
+echo ""
 
 ENGINE_NAME=$(python3 -c "import json; data=json.load(open('${ENGINE_DIR}/spec.json')); print(data['name'].lower())")
 CONTAINER_NAME=$(python3 -c "print('${USERNAME}/${DATASET}/${ENGINE_NAME}'.replace('/', '_'))")
@@ -41,7 +50,7 @@ echo "${ENGINE_NAME} docker engine has been build."
 # 將資料集掛載於Docker環境，並開始進行訓練。
 ###############################################
 echo "Start to run ${ENGINE_NAME} docker engine..."
-docker container run --name $CONTAINER_NAME -it -v $OUTPUT_DIR:/usr/src/ultralytics/benchmark -v $DATASET_DIR:/usr/src/ultralytics/dataset -v $ENGINE_DIR/engine:/usr/src/ultralytics/engine $ENGINE_NAME | tee -a $LOG_DIR
+docker container run --name $CONTAINER_NAME -it -v $OUTPUT_DIR:/usr/src/ultralytics/benchmark -v $ENGINE_DIR/engine:/usr/src/ultralytics/engine -v $DATASET_DIR:/usr/src/ultralytics/dataset $ENGINE_NAME | tee -a $LOG_DIR
 echo "Benchmark saved to ${OUTPUT_DIR}"
 ###############################################
 # 清除訓練環境及暫存資源

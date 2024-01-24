@@ -43,20 +43,19 @@ class Plugins(Driver):
             processor.install_from_local(local_path)
 
     def Run(self, dataset=None):
-        entrypoint, dataset, output, log = self.tmp_config(self.username, dataset, True)
+        entrypoint, dataset_path, output, log = self.tmp_config(self.username, dataset, True)
         subprocess.run(['./Xdriver/dos2unix.exe', entrypoint.replace(self.xdriver_dir, '.')])
-        subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset, '-l', log, '-o', output])
-        shutil.rmtree(dataset)
+        subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset])
+        #shutil.rmtree(dataset_path)
         
     def Load(self, module, username):
-        print(module)
-        print(self.__modules__.keys())
         if module in self.__modules__.keys():
             self.dtype, self.task, self.username = self.__modules__[module]["dtype"], self.__modules__[module]["task"], username
             self.module_dir = self.__modules__[module]["module_dir"]
             self.dataset_dir = self.module_dir + '/tmp/datasets/' + username
             self.log_dir = self.module_dir + '/tmp/logs/' + username
             self.output_dir = self.module_dir + '/tmp/outputs/' + username
+            print("self.dataset_dir", self.dataset_dir)
             return {"dataset_dir": self.dataset_dir, "dtype": self.dtype, "task": self.task, "username": self.username}
         else:
             print('engine not found, please check your configuration.')

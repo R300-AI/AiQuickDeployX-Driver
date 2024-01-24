@@ -1,74 +1,82 @@
-import requests, json
-
-data = json.dumps({'user': 'Markov', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
-res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
-print('http://localhost:5000/run', 'OK')
-print(res)
+import requests, json, time, threading
 
 """
-#取得dtype, task支援的選項
+print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
-print('http://localhost:5000/help', 'OK')
 print(res)
+print('http://localhost:5000/help', 'OK\n')
 
-#取得index的資訊
 res = requests.post('http://localhost:5000/index').content
-print('http://localhost:5000/index', 'OK')
 print(res)
+print('http://localhost:5000/index', 'OK\n')
 
-
-#新增一個HardHat資料集 (直接從Roboflow下載新增)
-data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'dtype':'Vision2D', 'task':'ObjectDetection'})
-res = json.loads(requests.post('http://localhost:5000/push', data=data, headers={'Content-Type': 'application/json'}).content)
-print('http://localhost:5000/push', 'OK')
-
-#取得使用者可存取的資源清單
 data = json.dumps({'user': 'admin'})
 res = json.loads(requests.post('http://localhost:5000/info', data=data, headers={'Content-Type': 'application/json'}).content)
-print('datasets:', list(res['datasets'].keys()))
-print('modules:', list(res['modules'].keys()))
+print(res)
+print('http://localhost:5000/info', 'OK\n')
 
-
-#新增一個HardHat1資料集後再移除
-data = json.dumps({'user': 'admin', 'dataset': 'HardHat1', 'dtype':'Vision2D', 'task':'ObjectDetection'})
+print("[新增預設資料集]")
+user = 'admin'
+dataset_name = 'HardHat'
+data = json.dumps({'user': user, 'dataset': dataset_name, 'dtype':'Vision2D', 'task':'ObjectDetection'})
 res = json.loads(requests.post('http://localhost:5000/push', data=data, headers={'Content-Type': 'application/json'}).content)
+print(res)
+print('http://localhost:5000/push', 'OK\n')
 
-data = json.dumps({'user': 'admin', 'dataset': 'HardHat1', 'dtype':'Vision2D', 'task':'ObjectDetection'})
+print("[測試新增/刪除資料集]")
+user = 'user'
+dataset_name = 'HardHat'
+data = json.dumps({'user': user, 'dataset': dataset_name, 'dtype':'Vision2D', 'task':'ObjectDetection'})
+res = json.loads(requests.post('http://localhost:5000/push', data=data, headers={'Content-Type': 'application/json'}).content)
+print("before:", res)
+data = json.dumps({'user': user, 'dataset': dataset_name, 'dtype':'Vision2D', 'task':'ObjectDetection'})
 res = json.loads(requests.post('http://localhost:5000/remove', data=data, headers={'Content-Type': 'application/json'}).content)
+print("after:", res)
 print('http://localhost:5000/remove', 'OK')
+"""
 
+"""
+print("[測試模組安裝/刪除]")
+res = requests.post('http://localhost:5000/index').content
+index = json.loads(res.decode("utf-8"))
+print(index)
+for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
+    data = json.dumps({'url': index[tag]})
+    res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
+    print('http://localhost:5000/install', tag, '(by url)', 'OK')
 
-#取得使用者可存取的資源清單
-data = json.dumps({'user': 'admin'})
-res = json.loads(requests.post('http://localhost:5000/info', data=data, headers={'Content-Type': 'application/json'}).content)
-print('datasets:', list(res['datasets'].keys()))
-print('modules:', list(res['modules'].keys()))
+    #data = json.dumps({'module': tag})
+    #res = json.loads(requests.post('http://localhost:5000/uninstall', data=data, headers={'Content-Type': 'application/json'}).content)
+    #print('http://localhost:5000/uninstall', tag, 'OK')
 
+    data = json.dumps({'tag': tag})
+    res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
+    print('http://localhost:5000/install', tag, ' (by tag)', 'OK')
 
-#安裝模組(以URL, tag, local_folder來安裝模組)
-data = json.dumps({'url': 'https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git'})
+    data = json.dumps({'module': tag})
+    res = json.loads(requests.post('http://localhost:5000/uninstall', data=data, headers={'Content-Type': 'application/json'}).content)
+    print('http://localhost:5000/uninstall', tag, 'OK')
+"""
+
+global flag
+flag = True
+def running():
+    global flag
+    flag = True
+    data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
+    res = json.loads(requests.post('http://localhost:5000/run', data=data, headers={'Content-Type': 'application/json'}).content)
+    print('http://localhost:5000/run', 'OK')
+    flag = False
+
+data = json.dumps({'tag': "Pytorch/YOLOv8n"})
 res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
-print('http://localhost:5000/install (by url)', 'OK')
-
-data = json.dumps({'tag': 'Pytorch-YOLOv8n_cls'})
-res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
-print('http://localhost:5000/install (by tag)', 'OK')
-
-data = json.dumps({'local': 'Pytorch-YOLOv8m_det'})
-res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
-print('http://localhost:5000/install (by local)', 'OK')
-
-
-#先新增Pytorch-YOLOv8m_det模組再刪除
-data = json.dumps({'local': 'Pytorch-YOLOv8m_det'})
-res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
-
-data = json.dumps({'module': 'Pytorch/YOLOv8m_det'})
-res = json.loads(requests.post('http://localhost:5000/uninstall', data=data, headers={'Content-Type': 'application/json'}).content)
-print('http://localhost:5000/uninstall', 'OK')
-
-#執行使用者指定的訓練過程
-data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
-res = json.loads(requests.post('http://localhost:5000/run', data=data, headers={'Content-Type': 'application/json'}).content)
-print('http://localhost:5000/run', 'OK')
+t = threading.Thread(target = running)
+t.start()
+"""
+while flag:
+    data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
+    res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
+    print("lines in logs:", res)
+    time.sleep(1)
+print('http://localhost:5000/logging', 'OK')
 """

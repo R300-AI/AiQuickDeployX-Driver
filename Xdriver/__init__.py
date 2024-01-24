@@ -1,6 +1,6 @@
 from typing import Literal
 __dtype__ = Literal['Vision2D']
-__task__ = Literal['ObjectDetection']
+__task__ = Literal['ImageClassification', 'ObjectDetection']
 __format__ = Literal['YOLOv8']
 
 from Xdriver.engine import MongoDB, Plugins

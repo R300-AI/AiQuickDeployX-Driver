@@ -1,7 +1,11 @@
 from flask import Flask, request, json
 from typing import get_args
+from flask_cors import CORS
+import os
 app = Flask(__name__)
-
+CORS(app)
+global running
+running = {}
 @app.route('/help', methods=['POST']) #params:[] / outputs:[dtype, task, format]
 def help():
     """
@@ -17,7 +21,7 @@ def index():
     """
     【範例】
     POST: None
-    RESPONSE: {'Pytorch-YOLOv8n': 'https://github.com/R300-AI/Pytorch-YOLOv8n.git', ...}
+    RESPONSE: {'Pytorch/YOLOv8n': 'https://github.com/R300-AI/Pytorch-YOLOv8n.git', ...}
     """
     from Xdriver import Plugins
     return json.load(open(Plugins().xdriver_dir + "/index.json"))
@@ -27,7 +31,7 @@ def info():
     from Xdriver import MongoDB, Plugins
     """
     【範例】
-    POST: {'user': 'Markov'}
+    POST: {'user': 'admin'}
     RESPONSE: {'datasets': ['HardHat'], 'modules': ['Pytorch/YOLOv8n']}
     """
     dialog = request.get_json()
@@ -38,7 +42,7 @@ def info():
 def push():
     """
     【範例】
-    POST: {'user': 'Markov', 'dataset': 'HardHat'}
+    POST: {'user': 'admin', 'dataset': 'HardHat'}
     RESPONSE: {'datasets': ['HardHat']}
     """
     from Xdriver import MongoDB
@@ -53,7 +57,7 @@ def push():
 def remove():
     """
     【範例】
-    POST: {'user': 'Markov', 'dataset': 'HardHat'}
+    POST: {'user': 'admin', 'dataset': 'HardHat'}
     RESPONSE: {'datasets': ['HardHat']}
     """
     from Xdriver import MongoDB
@@ -70,8 +74,7 @@ def install(): #params:[url, tag, local] / outputs:[modules]
     【範例】
     POST: 
         -  {'url': 'https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git'}
-        -  {'Pytorch-YOLOv8n_cls'}
-        -  {'local': 'Pytorch-YOLOv8m_det'}
+        -  {'tag': 'Pytorch-YOLOv8n_cls'}
     RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
     """
     from Xdriver import Plugins
@@ -108,7 +111,7 @@ def uninstall(): #params:[module] / outputs:[modules]
 def run(): 
     """
     【範例】
-    POST: {'user': 'Markov', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
+    POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
     RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
     """
     from Xdriver import MongoDB, Plugins
@@ -117,24 +120,32 @@ def run():
     
     plugin, client = Plugins(), MongoDB(user)
     client.Pull(dataset=dataset, metadata=plugin.Load(module, username=user))
-    plugin.Run(dataset='HardHat')
+    global running
+    running[user+dataset+module] = True
+    plugin.Run(dataset=dataset)
+    del running[user+dataset+module]
     return {'outputs': 'OK'}
 
 @app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[outputs]
 def logging(): 
     """
     【範例】
-    POST: {'user': 'Markov', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
+    POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
     RESPONSE: {outputs: ["logs line1", "logs line2", ...]}
     """
     from Xdriver import Plugins
     dialog = request.get_json()
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
     plugin = Plugins()
+    if user+dataset+module in running.keys():
+        lines = ["docker image building..."]
+    else:
+        lines = []
     log_path = plugin.__modules__[module]['module_dir']
     log_path += '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
-    file = open(log_path, 'r')
-    lines = file.read().splitlines()
+    if os.path.isfile(log_path):
+        file = open(log_path, 'r')
+        lines += file.read().splitlines()
     return {'outputs': lines}
 
 if __name__ == "__main__":

@@ -49,6 +49,8 @@ class Plugins(Driver):
         shutil.rmtree(dataset)
         
     def Load(self, module, username):
+        print(module)
+        print(self.__modules__.keys())
         if module in self.__modules__.keys():
             self.dtype, self.task, self.username = self.__modules__[module]["dtype"], self.__modules__[module]["task"], username
             self.module_dir = self.__modules__[module]["module_dir"]
@@ -58,6 +60,7 @@ class Plugins(Driver):
             return {"dataset_dir": self.dataset_dir, "dtype": self.dtype, "task": self.task, "username": self.username}
         else:
             print('engine not found, please check your configuration.')
+            return {"metadata": 'engine not found, please check the given module is installed.'}
 
     def tmp_config(self, username, dataset, initialize = True):
         self.entrypoint =  os.path.relpath('./' + self.module_dir + '/run.sh', os.getcwd()).replace('\\', '/')

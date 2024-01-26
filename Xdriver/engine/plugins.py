@@ -1,4 +1,4 @@
-import Xdriver, os, subprocess, shutil
+import Xdriver, os, subprocess, shutil, json
 from Xdriver.cfg.driver import Driver
 from .installers import Module_Installer
 from pathlib import Path
@@ -21,14 +21,17 @@ class Plugins(Driver):
                     for model in [f for f in os.listdir(framework_dir) if os.path.isdir(os.path.join(framework_dir, f))]:
                         model_dir = framework_dir + '/' + model
                         module = framework + '/' + model
-                        modules[module] = {"dtype": dtype, "task": task, "module_dir": model_dir}
-                        print('  -', module, '(dtype:', dtype ,'/task:', task, ')')
+                        spec_dir = "{model_dir}/spec.json".format(model_dir=model_dir)
+                        spec = json.load(open(spec_dir))
+                        modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir}
+                        print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
         self.__modules__ = modules
         return  modules
 
     def Uninstall(self, module):
         modules = self.List_Modules()
-        module_path = modules[module]['module_dir']
+        if module in modules.keys():
+            module_path = modules[module]['module_dir']
         if Path(module_path).exists():
             shutil.rmtree(module_path)
 

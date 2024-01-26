@@ -1,7 +1,7 @@
 from flask import Flask, request, json
 from typing import get_args
 from flask_cors import CORS
-import os
+import os, time
 app = Flask(__name__)
 CORS(app)
 global running
@@ -85,12 +85,19 @@ def install(): #params:[url, tag, local] / outputs:[modules]
         except:
             print('Source {} not found'.format(source))
     module, source = Plugins(), list(params.keys())[0]
-    if source == 'url':
-        module.Install(url=params[source])
-    elif source == 'tag':
-        module.Install(tag=params[source])
-    elif source == 'local':
-        module.Install(local_name=params[source])
+    retry = 0
+    while retry < 5:
+        time.sleep(3)
+        if source == 'url':
+            module.Install(url=params[source])
+            break
+        elif source == 'tag':
+            module.Install(tag=params[source])
+            break
+        elif source == 'local':
+            module.Install(local_name=params[source])
+            break
+        retry += 1
     return Plugins().List_Modules()
 
 @app.route('/uninstall', methods=['POST'])

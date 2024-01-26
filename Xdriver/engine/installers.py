@@ -1,5 +1,6 @@
 from git import Repo
 from pathlib import Path
+from datetime import datetime
 import os, shutil, json, stat
 
 class Module_Installer():
@@ -8,7 +9,7 @@ class Module_Installer():
     
     def install_from_url(self, url):
         tag = url.replace('.git', '').split('/')[-1]
-        local_path = "{dir}/data/models/temp".format(dir=self.xdriver_dir)
+        local_path = "{dir}/data/models/{tag}".format(dir=self.xdriver_dir, tag=tag.replace("/", "-"))
         spec_path = "{local_path}/spec.json".format(local_path=local_path)
         self.chmod(local_path)
         if Path(local_path).exists():
@@ -16,6 +17,10 @@ class Module_Installer():
         Repo.clone_from(url, local_path)
         spec = json.load(open(spec_path))
         dtype, task =  spec['dtype'], spec['task']
+        date = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        spec["date"] = date
+        with open(spec_path, "w") as f: 
+            json.dump(spec, f)
         framework, model = tag.split('-')
         target_path = "{xdriver_dir}/plugins/{dtype}/{task}/{framework}/{model}".format(xdriver_dir=self.xdriver_dir, dtype=dtype, task=task, framework=framework, model=model)
         self.chmod(target_path)

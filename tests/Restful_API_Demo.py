@@ -1,5 +1,6 @@
 import requests, json, time, threading
 
+
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -14,6 +15,7 @@ res = json.loads(requests.post('http://localhost:5000/info', data=data, headers=
 print(res)
 print('http://localhost:5000/info', 'OK\n')
 
+"""
 print("[新增預設資料集]")
 user = 'admin'
 dataset_name = 'HardHat'
@@ -37,7 +39,8 @@ print("[測試模組安裝/刪除]")
 res = requests.post('http://localhost:5000/index').content
 index = json.loads(res.decode("utf-8"))
 print(index)
-for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
+
+def install_test(tag):
     data = json.dumps({'url': index[tag]})
     res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
     print('http://localhost:5000/install', tag, '(by url)', 'OK')
@@ -46,9 +49,15 @@ for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
     res = json.loads(requests.post('http://localhost:5000/install', data=data, headers={'Content-Type': 'application/json'}).content)
     print('http://localhost:5000/install', tag, ' (by tag)', 'OK')
 
+    print("uninstall", tag)
     data = json.dumps({'module': tag})
     res = json.loads(requests.post('http://localhost:5000/uninstall', data=data, headers={'Content-Type': 'application/json'}).content)
+    print(res)
     print('http://localhost:5000/uninstall', tag, 'OK')
+
+for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
+    t = threading.Thread(target = install_test, args=(tag, ))
+    t.start()
 
 print("[測試訓練引擎執行及監測]")
 global flag
@@ -79,3 +88,4 @@ while flag:
     print("length of outputs:", len(res['outputs']))
     time.sleep(1)
 print('http://localhost:5000/logging', 'OK')
+"""

@@ -14,7 +14,6 @@ res = json.loads(requests.post('http://localhost:5000/info', data=data, headers=
 print(res)
 print('http://localhost:5000/info', 'OK\n')
 
-"""
 print("[新增預設資料集]")
 user = 'admin'
 dataset_name = 'HardHat'
@@ -88,4 +87,3 @@ while flag:
     print("length of outputs:", len(res['outputs']))
     time.sleep(1)
 print('http://localhost:5000/logging', 'OK')
-"""

@@ -24,7 +24,7 @@ class Plugins(Driver):
                             module = framework + '/' + model
                             spec_dir = "{model_dir}/spec.json".format(model_dir=model_dir)
                             spec = json.load(open(spec_dir))
-                            if "date" in spec:
+                            if "date" in spec.keys():
                                 modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir}
                                 print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
         self.__modules__ = modules

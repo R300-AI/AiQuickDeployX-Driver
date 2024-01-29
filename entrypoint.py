@@ -36,7 +36,7 @@ def info():
     """
     dialog = request.get_json()
     user = dialog['user']
-    return {"datasets": MongoDB(user).List_Datasets(), "modules": Plugins().List_Modules()}
+    return {"datasets": MongoDB(user).List_Datasets(), "modules": Plugins().List_Modules(username=user)}
 
 @app.route('/push', methods=['POST']) #params:[user, dataset, dtype, task] / outputs:[datasets]
 def push():

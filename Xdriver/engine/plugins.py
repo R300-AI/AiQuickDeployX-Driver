@@ -32,7 +32,7 @@ class Plugins(Driver):
                                         if user == username:
                                             dataset_path = datasets_path + '/' + user
                                             for dataset in [f for f in os.listdir(dataset_path) if os.path.isdir(os.path.join(dataset_path, f))]:
-                                                tmps[dataset] = {"name":dataset, "img": None}
+                                                tmps[dataset] = {"user":user, "img": None}
                                 modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir, "tmp": tmps}
                                 print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
         self.__modules__ = modules

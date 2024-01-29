@@ -25,8 +25,17 @@ class Plugins(Driver):
                             spec_dir = "{model_dir}/spec.json".format(model_dir=model_dir)
                             spec = json.load(open(spec_dir))
                             if "date" in spec.keys():
-                                modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir}
+                                datasets_path = model_dir + '/tmp/datasets'
+                                tmps = {}
+                                for user in [f for f in os.listdir(datasets_path) if os.path.isdir(os.path.join(datasets_path, f))]:
+                                    dataset_path = datasets_path + '/' + user
+                                    dataset_list = []
+                                    for dataset in [f for f in os.listdir(dataset_path) if os.path.isdir(os.path.join(dataset_path, f))]:
+                                        dataset_list.append(dataset)
+                                    tmps[user] = dataset_list
+                                modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir, "tmp": tmps}
                                 print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
+                                print(tmps)
         self.__modules__ = modules
         return  modules
 

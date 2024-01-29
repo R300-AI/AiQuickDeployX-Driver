@@ -1,6 +1,5 @@
 import requests, json, time, threading
 
-
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -14,7 +13,6 @@ data = json.dumps({'user': 'admin'})
 res = json.loads(requests.post('http://localhost:5000/info', data=data, headers={'Content-Type': 'application/json'}).content)
 print(res)
 print('http://localhost:5000/info', 'OK\n')
-
 """
 print("[新增預設資料集]")
 user = 'admin'
@@ -34,7 +32,7 @@ data = json.dumps({'user': user, 'dataset': dataset_name, 'dtype':'Vision2D', 't
 res = json.loads(requests.post('http://localhost:5000/remove', data=data, headers={'Content-Type': 'application/json'}).content)
 print("after:", res)
 print('http://localhost:5000/remove', 'OK')
-
+"""
 print("[測試模組安裝/刪除]")
 res = requests.post('http://localhost:5000/index').content
 index = json.loads(res.decode("utf-8"))
@@ -59,6 +57,7 @@ for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
     t = threading.Thread(target = install_test, args=(tag, ))
     t.start()
 
+"""
 print("[測試訓練引擎執行及監測]")
 global flag
 flag = True

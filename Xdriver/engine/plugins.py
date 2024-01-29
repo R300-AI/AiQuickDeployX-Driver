@@ -20,11 +20,12 @@ class Plugins(Driver):
                     framework_dir = task_dir + '/' + framework
                     for model in [f for f in os.listdir(framework_dir) if os.path.isdir(os.path.join(framework_dir, f))]:
                         model_dir = framework_dir + '/' + model
-                        module = framework + '/' + model
-                        spec_dir = "{model_dir}/spec.json".format(model_dir=model_dir)
-                        spec = json.load(open(spec_dir))
-                        modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir}
-                        print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
+                        if Path(model_dir + "/spec.json").exists():
+                            module = framework + '/' + model
+                            spec_dir = "{model_dir}/spec.json".format(model_dir=model_dir)
+                            spec = json.load(open(spec_dir))
+                            modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir}
+                            print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
         self.__modules__ = modules
         return  modules
 

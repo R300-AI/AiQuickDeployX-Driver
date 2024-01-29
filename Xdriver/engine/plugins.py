@@ -36,7 +36,6 @@ class Plugins(Driver):
                                         tmps[user] = dataset_list
                                 modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir, "tmp": tmps}
                                 print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
-                                print(tmps)
         self.__modules__ = modules
         return  modules
 

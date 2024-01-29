@@ -1,5 +1,3 @@
-roboflow
-GitPython
 pathlib
 GitPython
 ruamel-yaml
@@ -9,5 +7,5 @@ pymongo
 flask
 requests
 ultralytics
+thread
 flask-cors
-threading

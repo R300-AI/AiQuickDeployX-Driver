@@ -20,7 +20,7 @@ class Plugins(Driver):
                     framework_dir = task_dir + '/' + framework
                     for model in [f for f in os.listdir(framework_dir) if os.path.isdir(os.path.join(framework_dir, f))]:
                         model_dir = framework_dir + '/' + model
-                        if Path(model_dir + "/spec.json").exists():
+                        if os.path.isfile(model_dir + "/spec.json"):
                             module = framework + '/' + model
                             spec_dir = "{model_dir}/spec.json".format(model_dir=model_dir)
                             spec = json.load(open(spec_dir))

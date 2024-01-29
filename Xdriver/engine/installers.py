@@ -1,7 +1,7 @@
 from git import Repo
 from pathlib import Path
 from datetime import datetime
-import os, shutil, json, stat
+import os, shutil, json, stat, subprocess
 
 class Module_Installer():
     def __init__(self, xdriver_dir):

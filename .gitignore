@@ -1,3 +1,4 @@
 
 /data
 plugins/Vision2D/ObjectDetection/Pytorch/YOLOv8n_cls/
+plugins/Vision2D/ObjectDetection/Pytorch/YOLOv8n/

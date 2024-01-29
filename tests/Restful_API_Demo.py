@@ -14,6 +14,7 @@ res = json.loads(requests.post('http://localhost:5000/info', data=data, headers=
 print(res)
 print('http://localhost:5000/info', 'OK\n')
 
+"""
 print("[新增預設資料集]")
 user = 'admin'
 dataset_name = 'HardHat'
@@ -56,6 +57,7 @@ def install_test(tag):
 for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
     t = threading.Thread(target = install_test, args=(tag, ))
     t.start()
+"""
 
 print("[測試訓練引擎執行及監測]")
 global flag

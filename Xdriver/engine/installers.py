@@ -50,6 +50,8 @@ class Module_Installer():
     def chmod(self, path):
         for root, dirs, files in os.walk(path):
             for dir in dirs:
-                os.chmod(os.path.join(root, dir), stat.S_IRWXU)
+                subprocess.run(['chmod', '+x', os.path.join(root, dir)])
+                #os.chmod(os.path.join(root, dir), stat.S_IRWXU)
             for file in files:
-                os.chmod(os.path.join(root, file), stat.S_IRWXU)
+                subprocess.run(['chmod', '+x', os.path.join(root, file)])
+                #os.chmod(os.path.join(root, file), stat.S_IRWXU)

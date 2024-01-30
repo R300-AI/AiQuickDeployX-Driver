@@ -4,8 +4,8 @@
 |  ----   | ----  | ----  | ----  |
 | /help   | - | `dtype:str`, `task:str`, `format:str`  | 回傳目前系統支援的任務類型與資料集格式 |
 | /index  | - | `module:str(url)`| 所有開源模組的rul安裝連結 |
-| /info  | `user:str` |  `datasets:list(str)`, `modules:list(str)` | 取得特定使用者可存取的資料集、訓練模組名稱 |
-| /cache   | - | `user:dict`| 每個User在選擇Run後的dataset及影像(base64 ascii編碼) |
+| /info   | `user:str` |  `datasets:list(str)`, `modules:list(str)` | 取得特定使用者可存取的資料集、訓練模組名稱 |
+| /cache  | `user:str` | `dataset:str`| User在執行Run後的dataset及暫存影像(base64 ascii編碼) |
 
 ### 資料集管理
 |  Routes   | Post(JSON)  | Response  | 註解  |

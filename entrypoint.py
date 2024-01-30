@@ -148,9 +148,9 @@ def run():
     with open('./cache.json', "w") as f: 
         json.dump(cache, f)
     global running
-    running[user+dataset+module] = True
-    plugin.Run(dataset=dataset)
-    del running[user+dataset+module]
+    running[user+dataset+module] = "Running"
+    entrypoint = plugin.Run(dataset=dataset)
+    running[user+dataset+module] = entrypoint
     return {'outputs': 'OK'}
 
 @app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[outputs]
@@ -167,10 +167,11 @@ def logging():
     log_path = plugin.__modules__[module]['module_dir'] + '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
     if user+dataset+module in running.keys():
         lines.append("docker image building...")
-    if os.path.isfile(log_path):
-        file = open(log_path, 'r')
-        lines += file.read().splitlines()
-    return {'outputs': lines}
+        if os.path.isfile(log_path):
+            file = open(log_path, 'r')
+            lines += file.read().splitlines()
+        running[user+dataset+module]
+        return {'status': running[user+dataset+module], 'outputs': lines}
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

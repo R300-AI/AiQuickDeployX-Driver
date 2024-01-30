@@ -59,6 +59,8 @@ class Plugins(Driver):
         entrypoint, dataset_path, output, log = self.tmp_config(self.username, dataset, True)
         subprocess.run(['sudo', '-S', './Xdriver/dos2unix.exe', entrypoint.replace(self.xdriver_dir, '.')])
         subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset])
+        print(entrypoint)
+        return entrypoint
         #shutil.rmtree(dataset_path)
         
     def Load(self, module, username):

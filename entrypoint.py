@@ -193,7 +193,7 @@ def download():
     dialog = request.get_json()
     user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
     path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
-    return send_from_directory(path=path, filename=benchmark, as_attachment=True)
+    return send_from_directory(path, benchmark, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

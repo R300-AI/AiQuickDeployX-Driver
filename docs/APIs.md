@@ -13,6 +13,17 @@
 | /cache    | `user:str`| `dataset:str`| 使用者可存取資源的清單，包括快顯圖片、資料集/模組任務(需配合/Run)、Benchmark模型產出(需配合/Run) |
 | /download | `user:str`, `dataset:str`, `module:str`, `benchmark:str`|      -     | 依照cache可存取資源下載指定的Benchmark模型 |
 
+```
+cache字典結構
+    ├─ user 
+        ├─ dataset
+            ├─ module
+                ├─ benchmarks
+                └─ img
+        ... ...
+    └─
+```
+
 ### 資料集管理
 |  Routes   | Post(JSON)  | Response  | 註解  |
 |  ----   | ----  | ----  | ----  |

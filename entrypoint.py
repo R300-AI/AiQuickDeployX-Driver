@@ -143,7 +143,10 @@ def run():
 
     cache = json.load(open('./cache.json'))
     user_cache = cache.get(user, {})
-    user_cache.setdefault(dataset, {"module": module, "outputs": {}, "img":image_bytes})
+    dataset_cache = user_cache.get(dataset, {})
+    module_cache = dataset_cache.get(module, {"outputs": {}, "img": "image_bytes..."})#image_bytes
+    dataset_cache[module] = module_cache
+    user_cache[dataset] = dataset_cache
     cache[user] = user_cache
     with open('./cache.json', "w") as f: 
         json.dump(cache, f)
@@ -154,7 +157,7 @@ def run():
     stack[user+dataset+module] = outputs
 
     cache = json.load(open('./cache.json'))
-    cache[user][dataset]["outputs"] = outputs
+    cache[user][dataset][module]["outputs"] = outputs
     with open('./cache.json', "w") as f: 
         json.dump(cache, f)
     return outputs
@@ -179,12 +182,12 @@ def logging():
             lines += file.read().splitlines()
             status = stack[user+dataset+module]
     return {'status': status, 'logs': lines}
-"""
+
 @app.route('/download', methods=['POST']) #params:[path] / outputs: file
 def download(): 
     dialog = request.get_json()
     path = dialog['path']
     return send_from_directory(path.split('/')[-1], path, as_attachment=True)
-"""
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

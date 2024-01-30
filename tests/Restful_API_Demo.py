@@ -90,3 +90,8 @@ data = json.dumps({'user': 'admin'})
 res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers={'Content-Type': 'application/json'}).content)
 print(res)
 print('http://localhost:5000/cache', 'OK')
+
+data = json.dumps({'user': 'admin'})
+res = json.loads(requests.post('http://localhost:5000/download', data=data, headers={'Content-Type': 'application/json'}).content)
+print(res)
+print('http://localhost:5000/cache', 'OK')

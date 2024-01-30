@@ -92,5 +92,5 @@ print(res)
 print('http://localhost:5000/cache', 'OK')
 
 data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n', 'benchmark':'INT8_quant.tflite'})
-json.loads(requests.post('http://localhost:5000/download', data=data, headers={'Content-Type': 'application/json'}).content)
+requests.post('http://localhost:5000/download', data=data).content
 print('http://localhost:5000/download', 'OK')

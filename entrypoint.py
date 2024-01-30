@@ -39,16 +39,6 @@ def info():
     user = dialog['user']
     return {"datasets": MongoDB(user).List_Datasets(), "modules": Plugins().List_Modules(username=user)}
 
-@app.route('/cache', methods=['POST']) #params:[user] / outputs:[dataset(base64_image)]
-def cache():
-    """
-    【Example】
-    POST: {'user': 'admin'}
-    RESPONSE: {'HardHat': 'bytes_image', ...}
-    """
-    dialog = request.get_json()
-    return json.load(open('./cache.json'))[dialog['user']]
-
 @app.route('/push', methods=['POST']) #params:[user, dataset, dtype, task] / outputs:[datasets]
 def push():
     """
@@ -144,7 +134,7 @@ def run():
     cache = json.load(open('./cache.json'))
     user_cache = cache.get(user, {})
     dataset_cache = user_cache.get(dataset, {})
-    module_cache = dataset_cache.get(module, {"benchmarks": {}, "img": "image_bytes..."})#image_bytes
+    module_cache = dataset_cache.get(module, {"benchmarks": {}, "img": image_bytes})
     dataset_cache[module] = module_cache
     user_cache[dataset] = dataset_cache
     cache[user] = user_cache
@@ -183,6 +173,16 @@ def logging():
             benchmarks = stack[user+dataset+module]
     return {'benchmarks': benchmarks, 'logs': lines}
 
+@app.route('/cache', methods=['POST']) #params:[user] / outputs:[dataset(base64_image)]
+def cache():
+    """
+    【Example】
+    POST: {'user': 'admin'}
+    RESPONSE: {'HardHat': 'bytes_image', ...}
+    """
+    dialog = request.get_json()
+    return json.load(open('./cache.json'))[dialog['user']]
+
 @app.route('/download', methods=['POST'])  #params:[user, dataset, module, benchmark] / outputs: FILE
 def download(): 
     """
@@ -193,8 +193,7 @@ def download():
     dialog = request.get_json()
     user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
     path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
-    print(path)
-    return send_from_directory(path, benchmark, as_attachment=True)
+    return send_from_directory(path, filename=benchmark, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

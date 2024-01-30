@@ -61,11 +61,7 @@ class Plugins(Driver):
         subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset])
         outputs = []
         for model in ["FLOAT16.tflite", "FLOAT32.tflite", "FLOAT32_quant.tflite", "INT8.tflite", "INT8_quant.tflite"]:
-            outputs.append(entrypoint.replace("run.sh", "/tmp/outputs/{username}/{dataset}/{model}".format(username=self.username, dataset=dataset, model=model)))
-        #/home/r300ai/AiQuickDeployX-Driver/plugins/Vision2D/ObjectDetection/Pytorch/YOLOv8n/run.sh
-        #/tmp/outputs/admin/HardHat
-        #FLOAT16.tflite  FLOAT32.tflite  FLOAT32_quant.tflite  INT8.tflite  INT8_quant.tflite
-
+            outputs.append(entrypoint.replace("run.sh", "tmp/outputs/{username}/{dataset}/{model}".format(username=self.username, dataset=dataset, model=model)))
         #shutil.rmtree(dataset_path)
         return outputs
         

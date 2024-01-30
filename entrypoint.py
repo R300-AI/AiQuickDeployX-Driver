@@ -165,14 +165,13 @@ def logging():
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
     plugin, lines = Plugins(), []
     log_path = plugin.__modules__[module]['module_dir'] + '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
-    status = "None"
+    status = []
     if user+dataset+module in running.keys():
         lines.append("docker image building...")
         if os.path.isfile(log_path):
             file = open(log_path, 'r')
             lines += file.read().splitlines()
             status = running[user+dataset+module]
-    print(status)
     return {'status': status, 'outputs': lines}
 
 if __name__ == "__main__":

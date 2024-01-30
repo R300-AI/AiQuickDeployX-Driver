@@ -1,5 +1,5 @@
 import requests, json, time, threading
-
+"""
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -56,7 +56,7 @@ def install_test(tag):
 for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
     t = threading.Thread(target = install_test, args=(tag, ))
     t.start()
-
+"""
 print("[測試訓練引擎執行及監測]")
 global flag
 flag = True

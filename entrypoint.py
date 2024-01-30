@@ -144,7 +144,7 @@ def run():
     cache = json.load(open('./cache.json'))
     user_cache = cache.get(user, {})
     dataset_cache = user_cache.get(dataset, {})
-    module_cache = dataset_cache.get(module, {"outputs": {}, "img": "image_bytes..."})#image_bytes
+    module_cache = dataset_cache.get(module, {"benchmarks": {}, "img": "image_bytes..."})#image_bytes
     dataset_cache[module] = module_cache
     user_cache[dataset] = dataset_cache
     cache[user] = user_cache
@@ -153,16 +153,16 @@ def run():
 
     global stack
     stack[user+dataset+module] = {}
-    outputs = plugin.Run(dataset=dataset)
-    stack[user+dataset+module] = outputs
+    benchmarks = plugin.Run(dataset=dataset)
+    stack[user+dataset+module] = benchmarks
 
     cache = json.load(open('./cache.json'))
-    cache[user][dataset][module]["outputs"] = outputs
+    cache[user][dataset][module]["benchmarks"] = benchmarks
     with open('./cache.json', "w") as f: 
         json.dump(cache, f)
-    return outputs
+    return benchmarks
 
-@app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[status, outputs]
+@app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[benchmarks, outputs]
 def logging(): 
     """
     【Example】
@@ -174,26 +174,27 @@ def logging():
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
     plugin, lines = Plugins(), []
     log_path = plugin.__modules__[module]['module_dir'] + '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
-    status = {}
+    benchmarks = {}
     if user+dataset+module in stack.keys():
         lines.append("docker image building...")
         if os.path.isfile(log_path):
             file = open(log_path, 'r')
             lines += file.read().splitlines()
-            status = stack[user+dataset+module]
-    return {'status': status, 'logs': lines}
+            benchmarks = stack[user+dataset+module]
+    return {'benchmarks': benchmarks, 'logs': lines}
 
 @app.route('/download', methods=['POST'])  #params:[user, dataset, module, benchmark] / outputs: FILE
 def download(): 
     """
     【Example】
     POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n', 'benchmark': 'INT8_quant.tflite'}
+    RESPONSE: FILE
     """
     dialog = request.get_json()
     user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
-    path = json.load(open('./cache.json'))[user][dataset][module]["outputs"][benchmark]
+    path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
     print(path)
-    return send_from_directory(path.split('/')[-1], path, as_attachment=True)
+    return send_from_directory(path, benchmark, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

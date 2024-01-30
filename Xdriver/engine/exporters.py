@@ -20,7 +20,8 @@ class YOLOv8_Exporter():
                     yaml.dump(data, f)
                 for file in self.client['Images'][dataset + '.files'].find():
                     filename, subset = file['filename'], file['subset']
-                    with open(target_path + '/{subset}/images/{filename}'.format(subset=subset, filename=filename), 'wb') as f:
+                    image_path = target_path + '/{subset}/images/{filename}'.format(subset=subset, filename=filename)
+                    with open(image_path, 'wb') as f:
                         f.write(gridfs.GridFS(self.client['Images'], collection=dataset).get(file['_id']).read())
                     filename = filename.rstrip(filename.split('.')[-1]) + 'txt'
                     with open(target_path + '/{subset}/labels/{filename}'.format(subset=subset, filename=filename), 'w') as f:
@@ -28,6 +29,7 @@ class YOLOv8_Exporter():
                         for label in labels:
                             f.write(f"{' '.join([str(label[i]) for i in data['features']])}\n")
                 print('Dataset', dataset, 'has been saved to', target_path)
+                return image_path
 
         else:
             target_path = ''

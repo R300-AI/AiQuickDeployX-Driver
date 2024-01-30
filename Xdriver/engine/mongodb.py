@@ -49,7 +49,8 @@ class MongoDB(Driver):
         if dataset in self.List_Datasets():
             if self.__datasets__[dataset]['dtype'] == metadata["dtype"] and self.__datasets__[dataset]['task'] == metadata["task"]:
                 processor = YOLOv8_Exporter(self.client, metadata["dtype"], metadata["task"])
-                processor.Download(dataset, metadata["dataset_dir"], metadata["username"])
+                image_path = processor.Download(dataset, metadata["dataset_dir"], metadata["username"])
+                return image_path
             else:
                 print('Resources incompatble. Dataset(dtype:', self.__datasets__[dataset]['dtype'], '/task:', self.__datasets__[dataset]['task'], '), Module(dtype:', metadata['dtype'], '/task:', metadata["task"], ')')
         else:

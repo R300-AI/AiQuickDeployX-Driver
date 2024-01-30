@@ -1,11 +1,17 @@
 from flask import Flask, request, json
 from typing import get_args
 from flask_cors import CORS
-import os, time
+import os, time, base64
 app = Flask(__name__)
 CORS(app)
 global running
 running = {}
+
+@app.route('/cache', methods=['POST']) #params:[] / outputs:[user(dataset:base64_image_str)]
+def cache():
+    return json.load(open('./cache.json'))
+
+
 @app.route('/help', methods=['POST']) #params:[] / outputs:[dtype, task, format]
 def help():
     """
@@ -126,7 +132,17 @@ def run():
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
     
     plugin, client = Plugins(), MongoDB(user)
-    client.Pull(dataset=dataset, metadata=plugin.Load(module, username=user))
+    image_path = client.Pull(dataset=dataset, metadata=plugin.Load(module, username=user))
+    with open(image_path, 'rb') as f:
+        image_bytes = base64.b64encode(f.read())
+        image_bytes = image_bytes.decode('ascii')
+    cache = json.load(open('./cache.json'))
+    user_cache = cache.get(user, {})
+    user_cache.setdefault(dataset, image_bytes)
+    cache[user] = user_cache
+    with open('./cache.json', "w") as f: 
+        json.dump(cache, f)
+
     global running
     running[user+dataset+module] = True
     plugin.Run(dataset=dataset)

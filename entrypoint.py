@@ -183,10 +183,6 @@ def logging():
 """
 @app.route('/download', methods=['POST']) #params:[path] / outputs: file
 def download(): 
-    """
-    【Example】
-    POST: {'path': 'admin'}
-    """
     dialog = request.get_json()
     path = dialog['path']
     return send_from_directory(path.split('/')[-1], path, as_attachment=True)

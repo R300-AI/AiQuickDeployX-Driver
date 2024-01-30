@@ -183,10 +183,16 @@ def logging():
             status = stack[user+dataset+module]
     return {'status': status, 'logs': lines}
 
-@app.route('/download', methods=['POST']) #params:[path] / outputs: file
+@app.route('/download', methods=['POST'])  #params:[user, dataset, module, benchmark] / outputs: FILE
 def download(): 
+    """
+    【Example】
+    POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n', 'benchmark': 'INT8_quant.tflite'}
+    """
     dialog = request.get_json()
-    path = dialog['path']
+    user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
+    path = json.load(open('./cache.json'))[user][dataset][module]["outputs"][benchmark]
+    print(path)
     return send_from_directory(path.split('/')[-1], path, as_attachment=True)
 
 if __name__ == "__main__":

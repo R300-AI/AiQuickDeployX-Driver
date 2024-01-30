@@ -80,7 +80,7 @@ t.start()
 while True:
     data = json.dumps({'user': user, 'dataset': dataset_name, 'module':'Pytorch/YOLOv8n'})
     res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
-    print("length of outputs:", len(res['logs']), ',', list(res['status'].keys()))
+    print("length of outputs:", len(res['logs']), ',benchmarks', list(res['status'].keys()))
     if len(list(res['status'].keys())) != 0:
         break
     time.sleep(10)
@@ -91,7 +91,6 @@ res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers
 print(res)
 print('http://localhost:5000/cache', 'OK')
 
-data = json.dumps({'user': 'admin'})
-res = json.loads(requests.post('http://localhost:5000/download', data=data, headers={'Content-Type': 'application/json'}).content)
-print(res)
-print('http://localhost:5000/cache', 'OK')
+data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n', 'benchmark':'INT8_quant.tflite'})
+json.loads(requests.post('http://localhost:5000/download', data=data, headers={'Content-Type': 'application/json'}).content)
+print('http://localhost:5000/download', 'OK')

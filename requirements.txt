@@ -9,3 +9,4 @@ requests
 ultralytics
 thread
 flask-cors
+urllib3

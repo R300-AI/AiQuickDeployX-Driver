@@ -85,3 +85,8 @@ while True:
         break
     time.sleep(10)
 print('http://localhost:5000/logging', 'OK')
+
+data = json.dumps({'user': 'admin'})
+res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers={'Content-Type': 'application/json'}).content)
+print(res)
+print('http://localhost:5000/cache', 'OK')

@@ -39,7 +39,7 @@ def info():
     user = dialog['user']
     return {"datasets": MongoDB(user).List_Datasets(), "modules": Plugins().List_Modules(username=user)}
 
-@app.route('/cache', methods=['POST']) #params:[] / outputs:[dataset(base64_image)]
+@app.route('/cache', methods=['POST']) #params:[user] / outputs:[dataset(base64_image)]
 def cache():
     """
     【Example】
@@ -47,8 +47,7 @@ def cache():
     RESPONSE: {'HardHat': 'bytes_image', ...}
     """
     dialog = request.get_json()
-    user = dialog['user']
-    return json.load(open('./cache.json'))[user]
+    return json.load(open('./cache.json'))[dialog['user']]
 
 @app.route('/push', methods=['POST']) #params:[user, dataset, dtype, task] / outputs:[datasets]
 def push():

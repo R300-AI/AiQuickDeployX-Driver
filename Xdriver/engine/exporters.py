@@ -16,7 +16,7 @@ class YOLOv8_Exporter():
                 with open(target_path + '/data.yaml', 'w') as f:
                     data = self.client['SystemInfo'][dataset].find_one()
                     del data['_id']
-                    data['train'], data['vaild'], data['val'] = 'train/images', 'vaild/images', 'val/images'
+                    data['train'], data['test'], data['val'] = 'train/images', 'test/images', 'val/images'
                     yaml.dump(data, f)
                 for file in self.client['Images'][dataset + '.files'].find():
                     filename, subset = file['filename'], file['subset']

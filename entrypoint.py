@@ -148,7 +148,7 @@ def run():
     with open('./cache.json', "w") as f: 
         json.dump(cache, f)
     global running
-    running[user+dataset+module] = "Running"
+    running[user+dataset+module] = []
     entrypoint = plugin.Run(dataset=dataset)
     running[user+dataset+module] = entrypoint
     return {'outputs': 'OK'}

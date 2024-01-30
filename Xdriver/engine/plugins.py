@@ -59,9 +59,9 @@ class Plugins(Driver):
         entrypoint, dataset_path, output, log = self.tmp_config(self.username, dataset, True)
         subprocess.run(['sudo', '-S', './Xdriver/dos2unix.exe', entrypoint.replace(self.xdriver_dir, '.')])
         subprocess.run(["bash", entrypoint, '-u', self.username, '-d', dataset])
-        outputs = []
+        outputs = {}
         for model in ["FLOAT16.tflite", "FLOAT32.tflite", "FLOAT32_quant.tflite", "INT8.tflite", "INT8_quant.tflite"]:
-            outputs.append(entrypoint.replace("run.sh", "tmp/outputs/{username}/{dataset}/{model}".format(username=self.username, dataset=dataset, model=model)))
+            outputs[model] = entrypoint.replace("run.sh", "tmp/outputs/{username}/{dataset}/{model}".format(username=self.username, dataset=dataset, model=model))
         #shutil.rmtree(dataset_path)
         return outputs
         
@@ -73,7 +73,6 @@ class Plugins(Driver):
             self.dataset_dir = self.module_dir + '/tmp/datasets/' + username
             self.log_dir = self.module_dir + '/tmp/logs/' + username
             self.output_dir = self.module_dir + '/tmp/outputs/' + username
-            print("self.dataset_dir", self.dataset_dir)
             return {"dataset_dir": self.dataset_dir, "dtype": self.dtype, "task": self.task, "username": self.username}
         else:
             print('engine not found, please check your configuration.')

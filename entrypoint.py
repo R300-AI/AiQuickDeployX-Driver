@@ -1,11 +1,11 @@
-from flask import Flask, request, json
+from flask import Flask, request, json, send_from_directory
 from typing import get_args
 from flask_cors import CORS
 import os, time, base64
 app = Flask(__name__)
 CORS(app)
-global running
-running = {}
+global stack
+stack = {}
 
 @app.route('/help', methods=['POST']) #params:[] / outputs:[dtype, task, format]
 def help():
@@ -141,17 +141,24 @@ def run():
     image_path = client.Pull(dataset=dataset, metadata=plugin.Load(module, username=user))
     with open(image_path, 'rb') as f:
         image_bytes = base64.b64encode(f.read()).decode('ascii')
+
     cache = json.load(open('./cache.json'))
     user_cache = cache.get(user, {})
-    user_cache.setdefault(dataset, image_bytes)
+    user_cache.setdefault(dataset, {"module": module, "outputs": {}, "img":image_bytes})
     cache[user] = user_cache
     with open('./cache.json', "w") as f: 
         json.dump(cache, f)
-    global running
-    running[user+dataset+module] = []
-    entrypoint = plugin.Run(dataset=dataset)
-    running[user+dataset+module] = entrypoint
-    return {'outputs': 'OK'}
+
+    global stack
+    stack[user+dataset+module] = []
+    outputs = plugin.Run(dataset=dataset)
+    stack[user+dataset+module] = outputs
+
+    cache = json.load(open('./cache.json'))
+    cache[user][dataset]["outputs"] = outputs
+    with open('./cache.json', "w") as f: 
+        json.dump(cache, f)
+    return outputs
 
 @app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[status, outputs]
 def logging(): 
@@ -165,14 +172,24 @@ def logging():
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
     plugin, lines = Plugins(), []
     log_path = plugin.__modules__[module]['module_dir'] + '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
-    status = []
+    status = {}
     if user+dataset+module in running.keys():
         lines.append("docker image building...")
         if os.path.isfile(log_path):
             file = open(log_path, 'r')
             lines += file.read().splitlines()
             status = running[user+dataset+module]
-    return {'status': status, 'outputs': lines}
-
+    return {'status': status, 'logs': lines}
+"""
+@app.route('/download', methods=['POST']) #params:[path] / outputs: file
+def download(): 
+    """
+    【Example】
+    POST: {'path': 'admin'}
+    """
+    dialog = request.get_json()
+    path = dialog['path']
+    return send_from_directory(path.split('/')[-1], path, as_attachment=True)
+"""
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

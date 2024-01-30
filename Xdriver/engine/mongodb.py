@@ -20,9 +20,9 @@ class MongoDB(Driver):
         print('【MongoDB】Existing Datasets:')
         for dataset in self.client['SystemInfo'].list_collection_names():
             result = self.client['SystemInfo'][dataset].find_one()
-            #if result['user'] == self.user:
-            datasets[dataset] = {"user": result['user'], "dtype": result['dtype'], "task": result['task']}
-            print('  -', dataset, '(dtype:', datasets[dataset]['dtype'] ,'/task:', datasets[dataset]['task'], ')')
+            if result['user'] == self.user:
+                datasets[dataset] = {"user": result['user'], "dtype": result['dtype'], "task": result['task']}
+                print('  -', dataset, '(dtype:', datasets[dataset]['dtype'] ,'/task:', datasets[dataset]['task'], ')')
         self.__datasets__ = datasets
         return datasets
 

@@ -7,15 +7,10 @@ CORS(app)
 global running
 running = {}
 
-@app.route('/cache', methods=['POST']) #params:[] / outputs:[user(dataset:base64_image_str)]
-def cache():
-    return json.load(open('./cache.json'))
-
-
 @app.route('/help', methods=['POST']) #params:[] / outputs:[dtype, task, format]
 def help():
     """
-    【範例】
+    【Example】
     POST: None
     RESPONSE: {'dtype': ['Vision2D'], 'task': ['ObjectDetection'], 'format': ['YOLOv8']}
     """
@@ -25,7 +20,7 @@ def help():
 @app.route('/index', methods=['POST']) #params:[] / outputs:[module_names]
 def index():
     """
-    【範例】
+    【Example】
     POST: None
     RESPONSE: {'Pytorch/YOLOv8n': 'https://github.com/R300-AI/Pytorch-YOLOv8n.git', ...}
     """
@@ -36,7 +31,7 @@ def index():
 def info():
     from Xdriver import MongoDB, Plugins
     """
-    【範例】
+    【Example】
     POST: {'user': 'admin'}
     RESPONSE: {'datasets': ['HardHat'], 'modules': ['Pytorch/YOLOv8n']}
     """
@@ -44,10 +39,21 @@ def info():
     user = dialog['user']
     return {"datasets": MongoDB(user).List_Datasets(), "modules": Plugins().List_Modules(username=user)}
 
+@app.route('/cache', methods=['POST']) #params:[] / outputs:[dataset(base64_image)]
+def cache():
+    """
+    【Example】
+    POST: {'user': 'admin'}
+    RESPONSE: {'HardHat': 'bytes_image', ...}
+    """
+    dialog = request.get_json()
+    user = dialog['user']
+    return json.load(open('./cache.json'))[user]
+
 @app.route('/push', methods=['POST']) #params:[user, dataset, dtype, task] / outputs:[datasets]
 def push():
     """
-    【範例】
+    【Example】
     POST: {'user': 'admin', 'dataset': 'HardHat'}
     RESPONSE: {'datasets': ['HardHat']}
     """
@@ -62,7 +68,7 @@ def push():
 @app.route('/remove', methods=['POST']) #params:[user, dataset, dtype, task] / outputs:[datasets]
 def remove():
     """
-    【範例】
+    【Example】
     POST: {'user': 'admin', 'dataset': 'HardHat'}
     RESPONSE: {'datasets': ['HardHat']}
     """
@@ -77,7 +83,7 @@ def remove():
 @app.route('/install', methods=['POST'])
 def install(): #params:[url, tag, local] / outputs:[modules]
     """
-    【範例】
+    【Example】
     POST: 
         -  {'url': 'https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git'}
         -  {'tag': 'Pytorch-YOLOv8n_cls'}
@@ -109,7 +115,7 @@ def install(): #params:[url, tag, local] / outputs:[modules]
 @app.route('/uninstall', methods=['POST'])
 def uninstall(): #params:[module] / outputs:[modules]
     """
-    【範例】
+    【Example】
     POST: {'module': 'Pytorch/YOLOv8m_det'}
     RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
     """
@@ -123,7 +129,7 @@ def uninstall(): #params:[module] / outputs:[modules]
 @app.route('/run', methods=['POST']) #params:[user, dataset, module] / outputs:[outputs]
 def run(): 
     """
-    【範例】
+    【Example】
     POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
     RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
     """
@@ -134,15 +140,13 @@ def run():
     plugin, client = Plugins(), MongoDB(user)
     image_path = client.Pull(dataset=dataset, metadata=plugin.Load(module, username=user))
     with open(image_path, 'rb') as f:
-        image_bytes = base64.b64encode(f.read())
-        image_bytes = image_bytes.decode('ascii')
+        image_bytes = base64.b64encode(f.read()).decode('ascii')
     cache = json.load(open('./cache.json'))
     user_cache = cache.get(user, {})
     user_cache.setdefault(dataset, image_bytes)
     cache[user] = user_cache
     with open('./cache.json', "w") as f: 
         json.dump(cache, f)
-
     global running
     running[user+dataset+module] = True
     plugin.Run(dataset=dataset)
@@ -152,20 +156,17 @@ def run():
 @app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[outputs]
 def logging(): 
     """
-    【範例】
+    【Example】
     POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
     RESPONSE: {outputs: ["logs line1", "logs line2", ...]}
     """
     from Xdriver import Plugins
     dialog = request.get_json()
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
-    plugin = Plugins()
+    plugin, lines = Plugins(), []
+    log_path = plugin.__modules__[module]['module_dir'] + '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
     if user+dataset+module in running.keys():
-        lines = ["docker image building..."]
-    else:
-        lines = []
-    log_path = plugin.__modules__[module]['module_dir']
-    log_path += '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
+        lines.append("docker image building...")
     if os.path.isfile(log_path):
         file = open(log_path, 'r')
         lines += file.read().splitlines()

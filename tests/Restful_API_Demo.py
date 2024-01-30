@@ -58,15 +58,10 @@ for tag in ["Pytorch/YOLOv8n", "Pytorch/YOLOv8n_cls", "Tensorflow/YOLOv8m_det"]:
     t.start()
 """
 print("[測試訓練引擎執行及監測]")
-global flag
-flag = True
 def running(user, dataset_name):
-    global flag
-    flag = True
     data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'})
     res = json.loads(requests.post('http://localhost:5000/run', data=data, headers={'Content-Type': 'application/json'}).content)
     print('http://localhost:5000/run', 'OK')
-    flag = False
 
 #Add Dataset
 user = 'admin'
@@ -82,9 +77,11 @@ res = json.loads(requests.post('http://localhost:5000/install', data=data, heade
 t = threading.Thread(target = running, args=(user, dataset_name))
 t.start()
 
-while flag:
+while True:
     data = json.dumps({'user': user, 'dataset': dataset_name, 'module':'Pytorch/YOLOv8n'})
     res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
     print("length of outputs:", len(res['outputs']), ',', res['status'])
-    time.sleep(1)
+    if res['status'] != "Running":
+        break
+    time.sleep(10)
 print('http://localhost:5000/logging', 'OK')

@@ -9,7 +9,7 @@ class Plugins(Driver):
         self.__modules__ = self.List_Modules()
 
     def List_Modules(self, username=""):
-        print('【Plugins】Existing Modules:')
+        #print('【Plugins】Existing Modules:')
         modules = {}
         modules_dir = self.xdriver_dir + '/plugins'
         for dtype in [f for f in os.listdir(modules_dir) if os.path.isdir(os.path.join(modules_dir, f))]:
@@ -34,7 +34,7 @@ class Plugins(Driver):
                                             for dataset in [f for f in os.listdir(dataset_path) if os.path.isdir(os.path.join(dataset_path, f))]:
                                                 tmps[dataset] = {"user":user, "img": "None"}
                                 modules[module] = {"dtype": dtype, "task": task, "date": spec["date"], "module_dir": model_dir, "tmp": tmps}
-                                print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
+                                #print('  -', module, '(dtype:', dtype ,'/task:', task, ') installed at', spec["date"])
         self.__modules__ = modules
         return  modules
 

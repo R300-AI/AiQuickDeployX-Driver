@@ -150,7 +150,7 @@ def run():
         json.dump(cache, f)
 
     global stack
-    stack[user+dataset+module] = []
+    stack[user+dataset+module] = {}
     outputs = plugin.Run(dataset=dataset)
     stack[user+dataset+module] = outputs
 

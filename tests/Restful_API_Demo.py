@@ -81,7 +81,7 @@ while True:
     data = json.dumps({'user': user, 'dataset': dataset_name, 'module':'Pytorch/YOLOv8n'})
     res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
     print("length of outputs:", len(res['logs']), ',benchmarks', list(res['benchmarks'].keys()))
-    if len(list(res['status'].keys())) != 0:
+    if len(list(res['benchmarks'].keys())) != 0:
         break
     time.sleep(10)
 print('http://localhost:5000/logging', 'OK')

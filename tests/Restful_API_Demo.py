@@ -80,7 +80,7 @@ t.start()
 while True:
     data = json.dumps({'user': user, 'dataset': dataset_name, 'module':'Pytorch/YOLOv8n'})
     res = json.loads(requests.post('http://localhost:5000/logging', data=data, headers={'Content-Type': 'application/json'}).content)
-    print("length of outputs:", len(res['outputs']), ',', list(res['status'].keys()))
+    print("length of outputs:", len(res['logs']), ',', list(res['status'].keys()))
     if len(list(res['status'].keys())) != 0:
         break
     time.sleep(10)

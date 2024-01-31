@@ -1,6 +1,6 @@
 import requests, json, time, threading
 from urllib.parse import quote
-
+"""
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -91,7 +91,7 @@ data = json.dumps({'user': 'admin'})
 res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers={'Content-Type': 'application/json'}).content)
 print(res)
 print('http://localhost:5000/cache', 'OK')
-
+"""
 data = quote("admin-HardHat-Pytorch/YOLOv8n_INT8_quant.tflite")
 res = requests.get(f"http://localhost:5000/download/{data}") #模組的斜線需經過URL編碼成類似%2F的形式
 print(res)

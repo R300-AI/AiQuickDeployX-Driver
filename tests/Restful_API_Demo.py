@@ -92,11 +92,7 @@ res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers
 print(res)
 print('http://localhost:5000/cache', 'OK')
 
-user = 'admin'
-dataset = 'HardHat'
-module = 'Pytorch/YOLOv8n'
-benchmark = 'INT8_quant.tflite'
-url = f"http://localhost:5000/download/{user}/{dataset}/{module}/{benchmark}"
-print(url)
+
+url = f"http://localhost:5000/download/admin/HardHat/Pytorch/YOLOv8n/INT8_quant.tflite"
 res = requests.get(url) 
 print(res)

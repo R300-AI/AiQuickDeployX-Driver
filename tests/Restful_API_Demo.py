@@ -1,4 +1,5 @@
-import requests, json, time, threading, urllib
+import requests, json, time, threading
+ import urllib.parse
 """
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
@@ -95,7 +96,7 @@ print('http://localhost:5000/cache', 'OK')
 
 user = 'admin'
 dataset = 'HardHat'
-module = urllib.parse.quote('Pytorch/YOLOv8n')
+module = urllib.parse.quote('Pytorch/YOLOv8n', safe='')
 benchmark = 'INT8_quant.tflite'
 url = f"http://localhost:5000/download/{user}/{dataset}/{module}/{benchmark}"
 print(url)

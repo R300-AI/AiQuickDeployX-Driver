@@ -1,5 +1,5 @@
 import requests, json, time, threading
-"""
+
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -90,10 +90,6 @@ data = json.dumps({'user': 'admin'})
 res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers={'Content-Type': 'application/json'}).content)
 print(res)
 print('http://localhost:5000/cache', 'OK')
-"""
 
-#data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n', 'benchmark':'INT8_quant.tflite'})
-#requests.post('http://localhost:5000/download', data=data).content
-#print('http://localhost:5000/download', 'OK')
 res = requests.get("http://localhost:5000/download/admin-HardHat-Pytorch-YOLOv8n_INT8_quant.tflite")
 print(res)

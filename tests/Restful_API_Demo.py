@@ -92,6 +92,9 @@ res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers
 print(res)
 print('http://localhost:5000/cache', 'OK')
 """
-
-res = requests.get(f"http://localhost:5000/download/admin-HardHat-Pytorch<slash>YOLOv8n_INT8_quant.tflite") #模組的斜線需替換成<slash>
+user = 'admin'
+dataset = 'HardHat'
+module = 'Pytorch<slash>YOLOv8n'#模組的斜線需替換成<slash>
+benchmark = 'INT8_quant.tflite'
+res = requests.get(f"http://localhost:5000/download/{user}-{dataset}-{module}-{benchmark}") 
 print(res)

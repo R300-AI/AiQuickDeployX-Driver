@@ -157,7 +157,7 @@ def download():
 @app.route('/download/<dialog>', methods=['GET'])#params:[<user>-<dataset>-<module>-<benchmark>]
 def download(dialog): 
     print(dialog)
-    user, dataset, module, benchmark = dialog.split('_')
+    user, dataset, module, benchmark = dialog.split('-')
     return send_file('./test.log', as_attachment=True)
 
 if __name__ == "__main__":

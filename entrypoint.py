@@ -3,6 +3,7 @@ from typing import get_args
 from flask_cors import CORS
 import os, time, base64
 from io import BytesIO
+import urllib.parse
 
 app = Flask(__name__)
 CORS(app)
@@ -145,6 +146,8 @@ def cache():
 
 @app.route('/download/<user>/<dataset>/<module>/<benchmark>', methods=['GET'])#params:[<user>-<dataset>-<module>-<benchmark>]
 def download(user, dataset, module, benchmark):
+    print(user, dataset, module, benchmark)
+    module = urllib.parse.unquote(module)
     print(user, dataset, module, benchmark)
     path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
     print(path)

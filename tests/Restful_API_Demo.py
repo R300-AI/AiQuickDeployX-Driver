@@ -96,7 +96,7 @@ print('http://localhost:5000/cache', 'OK')
 
 user = 'admin'
 dataset = 'HardHat'
-module = urllib.parse.quote('Pytorch/YOLOv8n', safe='')
+module = 'Pytorch/YOLOv8n'
 benchmark = 'INT8_quant.tflite'
 url = f"http://localhost:5000/download/{user}/{dataset}/{module}/{benchmark}"
 print(url)

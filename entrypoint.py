@@ -144,8 +144,9 @@ def cache():
     print('receive a /cache post with dialog:', dialog)
     return json.load(open('./cache.json'))[dialog['user']]
 
-@app.route('/download/<user>/<dataset>/<module>/<benchmark>', methods=['GET'])
-def download(user, dataset, module, benchmark):
+@app.route('/download/<user>/<dataset>/<framework>/<model>/<benchmark>', methods=['GET'])
+def download(user, dataset, framework, model, benchmark):
+    module = framework + '/' + model
     print(user, dataset, module, benchmark)
     module = urllib.parse.unquote(module)
     print(user, dataset, module, benchmark)

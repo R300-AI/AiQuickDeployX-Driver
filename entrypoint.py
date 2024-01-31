@@ -1,30 +1,23 @@
-from flask import Flask, request, json, send_from_directory
+from flask import Flask, request, json, send_from_directory, send_file
 from typing import get_args
 from flask_cors import CORS
 import os, time, base64
+from io import BytesIO
+
 app = Flask(__name__)
 CORS(app)
 global stack
 stack = {}
 
+"""
 @app.route('/help', methods=['POST']) #params:[] / outputs:[dtype, task, format]
 def help():
-    """
-    【Example】
-    POST: None
-    RESPONSE: {'dtype': ['Vision2D'], 'task': ['ObjectDetection'], 'format': ['YOLOv8']}
-    """
     import Xdriver
     print('receive a /help post...')
     return {'dtype': list(get_args(Xdriver.__dtype__)), 'task': list(get_args(Xdriver.__task__)), 'format': list(get_args(Xdriver.__format__))}
 
 @app.route('/index', methods=['POST']) #params:[] / outputs:[module_names]
 def index():
-    """
-    【Example】
-    POST: None
-    RESPONSE: {'Pytorch/YOLOv8n': 'https://github.com/R300-AI/Pytorch-YOLOv8n.git', ...}
-    """
     print('receive a /index post...')
     from Xdriver import Plugins
     return json.load(open(Plugins().xdriver_dir + "/index.json"))
@@ -32,11 +25,6 @@ def index():
 @app.route('/info', methods=['POST']) #params:[user] / outputs:[datasets, modules]
 def info():
     from Xdriver import MongoDB, Plugins
-    """
-    【Example】
-    POST: {'user': 'admin'}
-    RESPONSE: {'datasets': ['HardHat'], 'modules': ['Pytorch/YOLOv8n']}
-    """
     dialog = request.get_json()
     print('receive a /info post with dialog:', dialog)
     user = dialog['user']
@@ -44,11 +32,6 @@ def info():
 
 @app.route('/push', methods=['POST']) #params:[user, dataset, dtype, task] / outputs:[datasets]
 def push():
-    """
-    【Example】
-    POST: {'user': 'admin', 'dataset': 'HardHat'}
-    RESPONSE: {'datasets': ['HardHat']}
-    """
     from Xdriver import MongoDB
     dialog = request.get_json()
     print('receive a /push post with dialog:', dialog)
@@ -60,11 +43,6 @@ def push():
 
 @app.route('/remove', methods=['POST']) #params:[user, dataset, dtype, task] / outputs:[datasets]
 def remove():
-    """
-    【Example】
-    POST: {'user': 'admin', 'dataset': 'HardHat'}
-    RESPONSE: {'datasets': ['HardHat']}
-    """
     from Xdriver import MongoDB
     dialog = request.get_json()
     print('receive a /remove post with dialog:', dialog)
@@ -76,13 +54,6 @@ def remove():
 
 @app.route('/install', methods=['POST'])
 def install(): #params:[url, tag, local] / outputs:[modules]
-    """
-    【Example】
-    POST: 
-        -  {'url': 'https://github.com/R300-AI/Tensorflow-YOLOv8m_det.git'}
-        -  {'tag': 'Pytorch-YOLOv8n_cls'}
-    RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
-    """
     from Xdriver import Plugins
     dialog, params = request.get_json(), {}
     print('receive a /install post with dialog:', dialog)
@@ -109,11 +80,6 @@ def install(): #params:[url, tag, local] / outputs:[modules]
 
 @app.route('/uninstall', methods=['POST'])
 def uninstall(): #params:[module] / outputs:[modules]
-    """
-    【Example】
-    POST: {'module': 'Pytorch/YOLOv8m_det'}
-    RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
-    """
     from Xdriver import Plugins
     dialog = request.get_json()
     print('receive a /uninstall post with dialog:', dialog)
@@ -124,11 +90,6 @@ def uninstall(): #params:[module] / outputs:[modules]
 
 @app.route('/run', methods=['POST']) #params:[user, dataset, module] / outputs:[outputs]
 def run(): 
-    """
-    【Example】
-    POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
-    RESPONSE: {'Pytorch/YOLOv8m_det': '(module info)', ...}
-    """
     from Xdriver import MongoDB, Plugins
     dialog = request.get_json()
     print('receive a /run post with dialog:', dialog)
@@ -162,11 +123,6 @@ def run():
 
 @app.route('/logging', methods=['POST']) #params:[user, dataset, module] / outputs:[benchmarks, outputs]
 def logging(): 
-    """
-    【Example】
-    POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n'}
-    RESPONSE: {outputs: ["logs line1", "logs line2", ...]}
-    """
     from Xdriver import Plugins
     dialog = request.get_json()
     print('receive a /logging post with dialog:', dialog)
@@ -184,27 +140,20 @@ def logging():
 
 @app.route('/cache', methods=['POST']) #params:[user] / outputs:[dataset(base64_image)]
 def cache():
-    """
-    【Example】
-    POST: {'user': 'admin'}
-    RESPONSE: {'HardHat': 'bytes_image', ...}
-    """
     dialog = request.get_json()
     print('receive a /cache post with dialog:', dialog)
     return json.load(open('./cache.json'))[dialog['user']]
+"""
 
 @app.route('/download', methods=['POST'])  #params:[user, dataset, module, benchmark] / outputs: FILE
 def download(): 
-    """
-    【Example】
-    POST: {'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n', 'benchmark': 'INT8_quant.tflite'}
-    RESPONSE: FILE
-    """
     dialog = request.get_json()
     print('receive a /download post with dialog:', dialog)
     user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
-    path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
-    return send_from_directory(path, benchmark, as_attachment=True)
+    #path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
+    path = './test.log'
+    return send_file(path, download_name=benchmark, as_attachment=True)
+    #return send_from_directory(path, benchmark, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

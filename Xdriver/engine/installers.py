@@ -45,7 +45,8 @@ class Module_Installer():
         if  tag in index.keys():
             self.install_from_url(index[tag])
         else:
-            print("module not found")
+            pass
+            #print("module not found")
 
     def chmod(self, path):
         for root, dirs, files in os.walk(path):

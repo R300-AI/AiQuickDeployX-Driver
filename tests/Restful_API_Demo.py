@@ -92,7 +92,6 @@ res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers
 print(res)
 print('http://localhost:5000/cache', 'OK')
 
-
 url = f"http://localhost:5000/download/admin/HardHat/Pytorch/YOLOv8n/INT8_quant.tflite"
 res = requests.get(url) 
 print(res)

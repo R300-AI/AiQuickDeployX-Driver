@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 global stack
 stack = {}
-"""
+
 @app.route('/help', methods=['POST']) #params:[] / outputs:[dtype, task, format]
 def help():
     import Xdriver
@@ -142,7 +142,6 @@ def cache():
     dialog = request.get_json()
     print('receive a /cache post with dialog:', dialog)
     return json.load(open('./cache.json'))[dialog['user']]
-"""
 
 @app.route('/download/<user>/<dataset>/<module>/<benchmark>', methods=['GET'])#params:[<user>-<dataset>-<module>-<benchmark>]
 def download(user, dataset, module, benchmark):

@@ -8,7 +8,7 @@ class YOLOv8_Exporter():
 
     def Download(self, dataset, target_path, username) -> str:
         target_path = target_path + '/{dataset}'.format(dataset=dataset)
-        print(self.dtype, self.task, username)
+        #print(self.dtype, self.task, username)
         processor = YOLOv8_Builder(self.dtype, self.task)
         processor.make(target_path)
         if self.dtype == 'Vision2D':
@@ -28,9 +28,9 @@ class YOLOv8_Exporter():
                         labels = self.client['Labels'][dataset].find({"filename":file['filename']})
                         for label in labels:
                             f.write(f"{' '.join([str(label[i]) for i in data['features']])}\n")
-                print('Dataset', dataset, 'has been saved to', target_path)
+                #print('Dataset', dataset, 'has been saved to', target_path)
                 return image_path
 
         else:
             target_path = ''
-            print("【YOLOv8_Exporter】dataset '{dataset}' or engine '{engine}' isn't exist, lease check your configuration.".format(dataset=dataset, engine=engine))
+            #print("【YOLOv8_Exporter】dataset '{dataset}' or engine '{engine}' isn't exist, lease check your configuration.".format(dataset=dataset, engine=engine))

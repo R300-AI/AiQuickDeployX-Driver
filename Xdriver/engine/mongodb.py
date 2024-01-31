@@ -17,12 +17,12 @@ class MongoDB(Driver):
 
     def List_Datasets(self):
         datasets = {}
-        print('【MongoDB】Existing Datasets:')
+        #print('【MongoDB】Existing Datasets:')
         for dataset in self.client['SystemInfo'].list_collection_names():
             result = self.client['SystemInfo'][dataset].find_one()
             if result['user'] == self.user:
                 datasets[dataset] = {"user": result['user'], "dtype": result['dtype'], "task": result['task']}
-                print('  -', dataset, '(dtype:', datasets[dataset]['dtype'] ,'/task:', datasets[dataset]['task'], ')')
+                #print('  -', dataset, '(dtype:', datasets[dataset]['dtype'] ,'/task:', datasets[dataset]['task'], ')')
         self.__datasets__ = datasets
         return datasets
 
@@ -52,9 +52,11 @@ class MongoDB(Driver):
                 image_path = processor.Download(dataset, metadata["dataset_dir"], metadata["username"])
                 return image_path
             else:
-                print('Resources incompatble. Dataset(dtype:', self.__datasets__[dataset]['dtype'], '/task:', self.__datasets__[dataset]['task'], '), Module(dtype:', metadata['dtype'], '/task:', metadata["task"], ')')
+                pass
+                #print('Resources incompatble. Dataset(dtype:', self.__datasets__[dataset]['dtype'], '/task:', self.__datasets__[dataset]['task'], '), Module(dtype:', metadata['dtype'], '/task:', metadata["task"], ')')
         else:
-            print('Dataset', dataset, 'does not exist.')
+            pass
+            #print('Dataset', dataset, 'does not exist.')
 
     def Download_Samples(self, dataset, dtype: Xdriver.__dtype__, task: Xdriver.__task__) -> str:
         apis = Roboflow_APIs(dtype, task)

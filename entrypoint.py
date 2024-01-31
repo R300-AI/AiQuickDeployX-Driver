@@ -15,6 +15,7 @@ def help():
     RESPONSE: {'dtype': ['Vision2D'], 'task': ['ObjectDetection'], 'format': ['YOLOv8']}
     """
     import Xdriver
+    print('receive a /help post...')
     return {'dtype': list(get_args(Xdriver.__dtype__)), 'task': list(get_args(Xdriver.__task__)), 'format': list(get_args(Xdriver.__format__))}
 
 @app.route('/index', methods=['POST']) #params:[] / outputs:[module_names]
@@ -24,6 +25,7 @@ def index():
     POST: None
     RESPONSE: {'Pytorch/YOLOv8n': 'https://github.com/R300-AI/Pytorch-YOLOv8n.git', ...}
     """
+    print('receive a /index post...')
     from Xdriver import Plugins
     return json.load(open(Plugins().xdriver_dir + "/index.json"))
 
@@ -36,6 +38,7 @@ def info():
     RESPONSE: {'datasets': ['HardHat'], 'modules': ['Pytorch/YOLOv8n']}
     """
     dialog = request.get_json()
+    print('receive a /info post with dialog:', dialog)
     user = dialog['user']
     return {"datasets": MongoDB(user).List_Datasets(), "modules": Plugins().List_Modules(username=user)}
 
@@ -48,6 +51,7 @@ def push():
     """
     from Xdriver import MongoDB
     dialog = request.get_json()
+    print('receive a /push post with dialog:', dialog)
     user, dataset, dtype, task = dialog['user'], dialog['dataset'], 'Vision2D', 'ObjectDetection'
 
     client = MongoDB(user)
@@ -63,6 +67,7 @@ def remove():
     """
     from Xdriver import MongoDB
     dialog = request.get_json()
+    print('receive a /remove post with dialog:', dialog)
     user, dataset, dtype, task = dialog['user'], dialog['dataset'], 'Vision2D', 'ObjectDetection'
     
     client = MongoDB(user)
@@ -80,6 +85,7 @@ def install(): #params:[url, tag, local] / outputs:[modules]
     """
     from Xdriver import Plugins
     dialog, params = request.get_json(), {}
+    print('receive a /install post with dialog:', dialog)
     for source in ['url', 'tag', 'local']:
         try:
             params[source] = dialog[source]
@@ -110,6 +116,7 @@ def uninstall(): #params:[module] / outputs:[modules]
     """
     from Xdriver import Plugins
     dialog = request.get_json()
+    print('receive a /uninstall post with dialog:', dialog)
     module_name = dialog['module']
     module = Plugins()
     module.Uninstall(module_name)
@@ -124,6 +131,7 @@ def run():
     """
     from Xdriver import MongoDB, Plugins
     dialog = request.get_json()
+    print('receive a /run post with dialog:', dialog)
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
     
     plugin, client = Plugins(), MongoDB(user)
@@ -161,6 +169,7 @@ def logging():
     """
     from Xdriver import Plugins
     dialog = request.get_json()
+    print('receive a /logging post with dialog:', dialog)
     user, dataset, module = dialog['user'], dialog['dataset'], dialog['module']
     plugin, lines = Plugins(), []
     log_path = plugin.__modules__[module]['module_dir'] + '/tmp/logs/{user}/{dataset}.log'.format(user=user, dataset=dataset)
@@ -181,6 +190,7 @@ def cache():
     RESPONSE: {'HardHat': 'bytes_image', ...}
     """
     dialog = request.get_json()
+    print('receive a /cache post with dialog:', dialog)
     return json.load(open('./cache.json'))[dialog['user']]
 
 @app.route('/download', methods=['POST'])  #params:[user, dataset, module, benchmark] / outputs: FILE
@@ -191,6 +201,7 @@ def download():
     RESPONSE: FILE
     """
     dialog = request.get_json()
+    print('receive a /download post with dialog:', dialog)
     user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
     path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
     return send_from_directory(path=path, filename=benchmark, as_attachment=True)

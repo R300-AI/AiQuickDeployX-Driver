@@ -95,5 +95,5 @@ print('http://localhost:5000/cache', 'OK')
 #data = json.dumps({'user': 'admin', 'dataset': 'HardHat', 'module':'Pytorch/YOLOv8n', 'benchmark':'INT8_quant.tflite'})
 #requests.post('http://localhost:5000/download', data=data).content
 #print('http://localhost:5000/download', 'OK')
-res = requests.get("http://localhost:5000/download/admin_HardHat_Pytorch/YOLOv8n_INT8_quant.tflite")
+res = requests.get("http://localhost:5000/download/admin-HardHat-Pytorch-YOLOv8n_INT8_quant.tflite")
 print(res)

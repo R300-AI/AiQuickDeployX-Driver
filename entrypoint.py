@@ -154,7 +154,7 @@ def download():
     return send_file(path, as_attachment=True)
     #return send_from_directory(path, benchmark, as_attachment=True)
 """
-@app.route('/download/<dialog>', methods=['GET'])#params:[<user>_<dataset>_<module>_<benchmark>]
+@app.route('/download/<dialog>', methods=['GET'])#params:[<user>-<dataset>-<module>-<benchmark>]
 def download(dialog): 
     print(dialog)
     user, dataset, module, benchmark = dialog.split('_')

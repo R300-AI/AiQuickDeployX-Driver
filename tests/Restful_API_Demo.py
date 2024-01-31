@@ -92,7 +92,6 @@ res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers
 print(res)
 print('http://localhost:5000/cache', 'OK')
 """
-data = quote("admin-HardHat-Pytorch<slash>YOLOv8n_INT8_quant.tflite")
-print(data)
-res = requests.get(f"http://localhost:5000/download/{data}") #模組的斜線需替換成<slash>
+
+res = requests.get(f"http://localhost:5000/download/admin-HardHat-Pytorch<slash>YOLOv8n_INT8_quant.tflite") #模組的斜線需替換成<slash>
 print(res)

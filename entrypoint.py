@@ -146,6 +146,8 @@ def cache():
 @app.route('/download/<dialog>', methods=['GET'])#params:[<user>-<dataset>-<module>-<benchmark>]
 def download(dialog): 
     print(dialog)
+    dialog = dialog.replace("<slash>", "/")
+    print(dialog)
     user, dataset, module, benchmark = dialog.split('-')
     path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
     print(path)

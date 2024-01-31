@@ -143,15 +143,21 @@ def cache():
     print('receive a /cache post with dialog:', dialog)
     return json.load(open('./cache.json'))[dialog['user']]
 
+"""
 @app.route('/download', methods=['POST'])  #params:[user, dataset, module, benchmark] / outputs: FILE
 def download(): 
     dialog = request.get_json()
     print('receive a /download post with dialog:', dialog)
     user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
     #path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
-    path = './test.log'
+    path = 
     return send_file(path, as_attachment=True)
     #return send_from_directory(path, benchmark, as_attachment=True)
+"""
+@app.route('/download/<spec>', methods=['GET'])
+def download(spec): 
+    print(spec)
+    return send_file('./test.log', as_attachment=True)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

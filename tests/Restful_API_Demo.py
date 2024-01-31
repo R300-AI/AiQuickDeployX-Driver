@@ -1,6 +1,5 @@
 import requests, json, time, threading
 
-"""
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -91,7 +90,7 @@ data = json.dumps({'user': 'admin'})
 res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers={'Content-Type': 'application/json'}).content)
 print(res)
 print('http://localhost:5000/cache', 'OK')
-"""
+
 user = 'admin'
 dataset = 'HardHat'
 module = 'Pytorch<slash>YOLOv8n'#模組的斜線需替換成<slash>

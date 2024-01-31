@@ -154,9 +154,10 @@ def download():
     return send_file(path, as_attachment=True)
     #return send_from_directory(path, benchmark, as_attachment=True)
 """
-@app.route('/download/<spec>', methods=['GET'])
-def download(spec): 
-    print(spec)
+@app.route('/download/<dialog>', methods=['GET'])#params:[<user>_<dataset>_<module>_<benchmark>]
+def download(dialog): 
+    print(dialog)
+    user, dataset, module, benchmark = dialog.split('_')
     return send_file('./test.log', as_attachment=True)
 
 if __name__ == "__main__":

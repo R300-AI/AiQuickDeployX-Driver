@@ -150,7 +150,7 @@ def download():
     user, dataset, module, benchmark = dialog['user'], dialog['dataset'], dialog['module'], dialog['benchmark']
     #path = json.load(open('./cache.json'))[user][dataset][module]["benchmarks"][benchmark]
     path = './test.log'
-    return send_file(path, download_name=benchmark, as_attachment=True)
+    return send_file(path, as_attachment=True)
     #return send_from_directory(path, benchmark, as_attachment=True)
 
 if __name__ == "__main__":

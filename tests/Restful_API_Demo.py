@@ -1,5 +1,5 @@
 import requests, json, time, threading
- import urllib.parse
+import urllib.parse
 """
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content

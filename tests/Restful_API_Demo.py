@@ -1,5 +1,4 @@
-import requests, json, time, threading
-
+import requests, json, time, threading, urllib
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -91,9 +90,13 @@ res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers
 print(res)
 print('http://localhost:5000/cache', 'OK')
 
+
+
 user = 'admin'
 dataset = 'HardHat'
-module = 'Pytorch<slash>YOLOv8n'#模組的斜線需替換成<slash>
+module = urllib.parse.quote('Pytorch/YOLOv8n')
 benchmark = 'INT8_quant.tflite'
-res = requests.get(f"http://localhost:5000/download/{user}-{dataset}-{module}-{benchmark}") 
+url = f"http://localhost:5000/download/{user}-{dataset}-{module}-{benchmark}"
+print(url)
+res = requests.get(url) 
 print(res)

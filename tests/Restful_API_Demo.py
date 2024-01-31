@@ -97,7 +97,7 @@ user = 'admin'
 dataset = 'HardHat'
 module = urllib.parse.quote('Pytorch/YOLOv8n')
 benchmark = 'INT8_quant.tflite'
-url = f"http://localhost:5000/download/{user}-{dataset}-{module}-{benchmark}"
+url = f"http://localhost:5000/download/{user}/{dataset}/{module}/{benchmark}"
 print(url)
 res = requests.get(url) 
 print(res)

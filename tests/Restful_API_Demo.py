@@ -1,6 +1,6 @@
 import requests, json, time, threading
 import urllib.parse
-"""
+
 print("[測試系統資訊]")
 res = requests.post('http://localhost:5000/help').content
 print(res)
@@ -91,8 +91,6 @@ data = json.dumps({'user': 'admin'})
 res = json.loads(requests.post('http://localhost:5000/cache', data=data, headers={'Content-Type': 'application/json'}).content)
 print(res)
 print('http://localhost:5000/cache', 'OK')
-"""
-
 
 user = 'admin'
 dataset = 'HardHat'

@@ -3,16 +3,16 @@ import urllib.parse
 port = "5001"
 
 print("[測試系統資訊]")
-res = requests.post('http://localhost:5000/help').content
+res = requests.post('http://localhost:' + port + '/help').content
 print(res)
 print('http://localhost:' + port + '/help', 'OK\n')
 
-res = requests.post('http://localhost:5000/index').content
+res = requests.post('http://localhost:' + port + '/index').content
 print(res)
 print('http://localhost:' + port + '/index', 'OK\n')
 
 data = json.dumps({'user': 'admin'})
-res = json.loads(requests.post('http://localhost:5000/info', data=data, headers={'Content-Type': 'application/json'}).content)
+res = json.loads(requests.post('http://localhost:' + port + '/info', data=data, headers={'Content-Type': 'application/json'}).content)
 print(res)
 print('http://localhost:' + port + '/info', 'OK\n')
 

@@ -1,6 +1,6 @@
 import requests, json, time, threading
 import urllib.parse
-port = "5001"
+port = "5000"
 
 print("[測試系統資訊]")
 res = requests.post('http://localhost:' + port + '/help').content
